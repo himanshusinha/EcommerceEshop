@@ -1,45 +1,39 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {THUNK_STATUS} from '../constants/redux.constant';
-import {loginAsyncThunk} from '../asyncThunk/authAsyncThunk';
+import {getCategoriesThunk} from '../asyncThunk/authAsyncThunk';
 
 const initialState = {
-  user: [],
-  accessToken: null,
+  user: null,
   authStatus: null,
   isLoading: false,
-  isAuthenticated: false,
   isError: false,
 };
-const authSlice = createSlice({
-  name: 'auth',
+const categorySlice = createSlice({
+  name: 'category',
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(loginAsyncThunk.pending, (state, action) => {
+    builder.addCase(getCategoriesThunk.pending, (state, action) => {
       state.authStatus = THUNK_STATUS.LOADING;
       state.isLoading = true;
-      state.isAuthenticated = false;
       state.isError = false;
     });
-
-    builder.addCase(loginAsyncThunk.fulfilled, (state, action) => {
+    builder.addCase(getCategoriesThunk.fulfilled, (state, action) => {
       state.authStatus = THUNK_STATUS.SUCCESS;
       state.user = action?.payload?.data;
       state.accessToken = action.payload?.data?.tokens?.access_token;
       state.isLoading = false;
-      state.isAuthenticated = true;
       state.isError = false;
     });
-
-    builder.addCase(loginAsyncThunk.rejected, (state, action) => {
-      state.authStatus = THUNK_STATUS.FAILED;
+    builder.addCase(getCategoriesThunk.rejected, (state, action) => {
+      state.authStatus = THUNK_STATUS.SUCCESS;
+      state.user = action?.payload?.data;
       state.isLoading = false;
       state.isError = true;
-      state.isAuthenticated = false;
     });
   },
 });
 
-export const {addToken} = authSlice.actions;
-export const authState = state => state.authStatus;
-export default authSlice.reducer;
+export const {addToken} = categorySlice.actions;
+export const categoryState = state => state.categoryStatus;
+export default categorySlice.reducer;

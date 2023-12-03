@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {
   moderateScale,
   moderateScaleVertical,
@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
+    justifyContent: 'center',
   },
   inputContainer: {
     flex: 0.8,
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
   heading: {
     paddingVertical: moderateScale(30),
     alignSelf: 'center',
-    fontSize: moderateScale(30),
+    fontSize: moderateScale(25),
     fontWeight: 'bold',
     color: colors.black,
   },
@@ -45,9 +46,17 @@ const styles = StyleSheet.create({
     fontSize: scale(14),
     fontWeight: 'bold',
   },
-  scrollStyle: {flex: 1, backgroundColor: colors.white},
+  scrollStyle: {
+    backgroundColor: colors.white,
+    justifyContent: 'center',
+    marginTop: Platform.OS == 'android' ? moderateScale(80) : moderateScale(10),
+  },
   viewStyle: {
     marginTop: moderateScaleVertical(10),
+  },
+  errorText: {
+    color: colors.RED,
+    marginTop: moderateScale(10),
   },
 });
 export default styles;

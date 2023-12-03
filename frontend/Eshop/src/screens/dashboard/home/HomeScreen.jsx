@@ -5,7 +5,6 @@ import Header from '../../../components/Header/Header';
 import images from '../../../constants/images';
 import {data, searchData} from '../../../constants/list';
 import ItemCategories from '../../../components/List/ItemCategories/ItemCategories';
-import {moderateScale} from '../../../styles/responsiveSize';
 import styles from './styles';
 import routes from '../../../constants/routes';
 import ItemProducts from '../../../components/List/ItemProducts/ItemProducts';

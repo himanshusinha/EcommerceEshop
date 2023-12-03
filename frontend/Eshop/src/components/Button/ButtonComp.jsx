@@ -16,9 +16,11 @@ const ButtonComp = ({
   leftImg = null,
   textStyle = {},
   isLoading = false,
+  buttonDisabled,
 }) => {
   return (
     <TouchableOpacity
+      disabled={buttonDisabled}
       style={{...styles.container, ...style}}
       onPress={onPress}
       activeOpacity={0.7}>

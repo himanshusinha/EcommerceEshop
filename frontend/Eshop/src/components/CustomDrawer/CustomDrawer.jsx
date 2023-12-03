@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -6,21 +6,67 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Pressable,
 } from 'react-native';
-import {
-  DrawerContentScrollView,
-  DrawerItemList,
-} from '@react-navigation/drawer';
+import {DrawerContentScrollView} from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import images from '../../constants/images';
 import routes from '../../constants/routes';
 import {useNavigation} from '@react-navigation/native';
 import colors from '../../constants/colors';
+import {
+  getProfileAsyncThunk,
+  logOutAsyncThunk,
+} from '../../redux/asyncThunk/authAsyncThunk';
+import Toast from 'react-native-toast-message';
+import {useDispatch} from 'react-redux';
 
 const CustomDrawer = props => {
   const selectedRouteName = props.state.routes[props.state.index].name;
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [profile, setProfile] = useState();
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
 
+  useEffect(() => {
+    getProfile();
+  }, []);
+  const logOut = () => {
+    dispatch(logOutAsyncThunk())
+      .unwrap()
+      .then(res => {
+        if (res && res.status === 200) {
+          Toast.show({
+            type: 'success',
+            text1: res.data.message,
+          });
+          navigation.navigate(routes.LOGIN_SCREEN);
+        }
+      })
+      .catch(err => {
+        Toast.show({
+          type: 'success',
+          text1: err.data.message,
+        });
+      });
+  };
+
+  const getProfile = () => {
+    dispatch(getProfileAsyncThunk())
+      .unwrap()
+      .then(res => {
+        if (res && res.status === 200) {
+          const userProfile = res.data.user;
+          setProfile(userProfile.avatar.url);
+          setName(userProfile.name);
+          setEmail(userProfile.email);
+        }
+      })
+      .catch(err => {
+        console.error(err); // Log any potential errors
+      });
+  };
   return (
     <ScrollView
       style={{flex: 1}}
@@ -32,15 +78,17 @@ const CustomDrawer = props => {
           backgroundColor: colors.themeColor,
         }}>
         <ImageBackground source={images.Menu_Bg} style={{padding: 20}}>
-          <Image
-            source={images.UserProfile}
-            style={{
-              height: 80,
-              width: 80,
-              borderRadius: 40,
-              marginBottom: 10,
-            }}
-          />
+          <Pressable onPress={() => navigation.navigate(routes.PROFILE_SCREEN)}>
+            <Image
+              source={profile ? {uri: profile} : images.Profile}
+              style={{
+                height: 80,
+                width: 80,
+                borderRadius: 40,
+                marginBottom: 10,
+              }}
+            />
+          </Pressable>
           <Text
             style={{
               color: '#fff',
@@ -48,7 +96,7 @@ const CustomDrawer = props => {
               fontFamily: 'Roboto-Medium',
               marginBottom: 5,
             }}>
-            John Doe
+            {name}
           </Text>
           <View style={{flexDirection: 'row'}}>
             <Text
@@ -57,7 +105,7 @@ const CustomDrawer = props => {
                 fontFamily: 'Roboto-Regular',
                 marginRight: 5,
               }}>
-              johndoe@gmail.com
+              {email}
             </Text>
           </View>
         </ImageBackground>
@@ -136,7 +184,9 @@ const CustomDrawer = props => {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}} style={{paddingVertical: 15}}>
+        <TouchableOpacity
+          onPress={() => logOut()}
+          style={{paddingVertical: 15}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Ionicons name="exit-outline" size={22} />
             <Text

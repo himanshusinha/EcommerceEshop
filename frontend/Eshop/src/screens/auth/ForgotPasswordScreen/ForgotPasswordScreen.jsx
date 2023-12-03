@@ -1,12 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-  Image,
-  Modal,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, Modal} from 'react-native';
 import TextInputWithLabel from '../../../components/InputField/TextInputWithLabel';
 import colors from '../../../constants/colors';
 import styles from './styles';
@@ -16,60 +9,68 @@ import {useDispatch} from 'react-redux';
 import {moderateScale} from '../../../styles/responsiveSize';
 import ButtonComp from '../../../components/Button/ButtonComp';
 
-import {loginAsyncThunk} from '../../../redux/asyncThunk/authAsyncThunk';
+import {
+  forgotPasswordThunk,
+  loginAsyncThunk,
+} from '../../../redux/asyncThunk/authAsyncThunk';
 import Loader from '../../../components/Loader/Loader';
 import Toast from 'react-native-toast-message';
 import {useNavigation} from '@react-navigation/native';
-import routes from '../../../constants/routes';
-import {moderateVerticalScale} from 'react-native-size-matters';
 import images from '../../../constants/images';
-const LoginScreen = () => {
+const ForgotPasswordScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
-
-  const [password, setPassword] = useState('');
-
   const [isLoading, setIsLoading] = useState(false);
   const checkValidation = () => {
     if (email === null || email.trim() === '') {
       Toast.show({
         type: 'error',
-        text1: 'Please enter name',
+        text1: 'Please enter email',
       });
-    } else if (password === null || password.trim() === '') {
-      Toast.show({
-        type: 'error',
-        text1: 'Please enter password',
-      });
-    } else login();
+    } else forgotPassword();
   };
 
-  const login = async () => {
+  const forgotPassword = async () => {
     setIsLoading(true);
-    dispatch(loginAsyncThunk({email, password}))
+    dispatch(forgotPasswordThunk({email}))
       .unwrap()
       .then(res => {
+        setIsLoading(false); // Move this line outside the if-else block
         if (res && res.status === 200) {
           Toast.show({
             type: 'success',
             text1: res.data.message,
           });
-          // navigation.navigate(() => Routes.HOME);
           setIsLoading(false);
         } else {
           Toast.show({
-            type: 'error',
-            text1: 'Incorrect Email Or Password',
+            type: 'success',
+            text1: 'Email sent on your emailid',
           });
           setIsLoading(false);
         }
       })
       .catch(err => {
-        console.log(err);
+        console.error(err); // Log the error for debugging purposes
+
+        if (err.response && err.response.data) {
+          Toast.show({
+            type: 'error',
+            text1: err.response.data.message || 'An error occurred',
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: 'An error occurred',
+          });
+        }
+      })
+      .finally(() => {
         setIsLoading(false);
       });
   };
+
   return (
     <View style={styles.container}>
       <WrapperContainer contentContainerStyle={styles.scrollStyle}>
@@ -84,7 +85,7 @@ const LoginScreen = () => {
           <View style={styles.container}>
             <View style={styles.inputContainer}>
               <View style={styles.viewStyle}>
-                <Text style={styles.heading}>Login</Text>
+                <Text style={styles.heading}>Forgot Password</Text>
 
                 <TextInputWithLabel
                   leftIcon={images.Email}
@@ -99,37 +100,6 @@ const LoginScreen = () => {
                   onChangeText={e => setEmail(e)}
                 />
               </View>
-              <View style={styles.viewStyle}>
-                <TextInputWithLabel
-                  leftIcon={images.Lock}
-                  rightIcon={images.Hide}
-                  mode="outlined"
-                  label="Password"
-                  placeholder="Please Enter Password"
-                  outlineColor={colors.color1_light2}
-                  activeOutlineColor={colors.color1_light2}
-                  textColor={colors.blackOpacity30}
-                  value={password}
-                  autoCapitalize={'none'}
-                  onChangeText={e => setPassword(e)}
-                  secureTextEntry={true}
-                />
-              </View>
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'flex-end',
-                  marginTop: moderateVerticalScale(20),
-                }}>
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate(routes.FORGOT_PASSWORD_SCREEN)
-                  }>
-                  <Text style={{color: colors.themeColor}}>
-                    Forgot Password ?
-                  </Text>
-                </TouchableOpacity>
-              </View>
             </View>
             <View
               style={{
@@ -138,7 +108,7 @@ const LoginScreen = () => {
                 bottom: moderateScale(20),
               }}>
               <ButtonComp
-                text="Login"
+                text="Send"
                 textStyle={{
                   color: colors.white,
                   fontWeight: 'bold',
@@ -151,13 +121,6 @@ const LoginScreen = () => {
                 onPress={checkValidation}
               />
             </View>
-            <View style={styles.bottomContainer}>
-              <Text style={styles.signUpText}>Already have an account?</Text>
-              <TouchableOpacity
-                onPress={() => navigation.navigate(routes.LOGIN_SCREEN)}>
-                <Text style={styles.signUpButton}> Login</Text>
-              </TouchableOpacity>
-            </View>
           </View>
         </KeyboardAwareScrollView>
       </WrapperContainer>
@@ -165,4 +128,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default ForgotPasswordScreen;

@@ -1,45 +1,40 @@
 import {createSlice} from '@reduxjs/toolkit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {THUNK_STATUS} from '../constants/redux.constant';
-import {loginAsyncThunk} from '../asyncThunk/authAsyncThunk';
+import {signUpAsyncThunk} from '../asyncThunk/authAsyncThunk';
 
 const initialState = {
-  user: [],
-  accessToken: null,
+  user: null,
   authStatus: null,
   isLoading: false,
-  isAuthenticated: false,
   isError: false,
+  multipartData: null, // New state property to store multipart data
 };
-const authSlice = createSlice({
+const signUpSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(loginAsyncThunk.pending, (state, action) => {
+    builder.addCase(signUpAsyncThunk.pending, (state, action) => {
       state.authStatus = THUNK_STATUS.LOADING;
       state.isLoading = true;
-      state.isAuthenticated = false;
       state.isError = false;
     });
-
-    builder.addCase(loginAsyncThunk.fulfilled, (state, action) => {
+    builder.addCase(signUpAsyncThunk.fulfilled, (state, action) => {
       state.authStatus = THUNK_STATUS.SUCCESS;
       state.user = action?.payload?.data;
-      state.accessToken = action.payload?.data?.tokens?.access_token;
       state.isLoading = false;
-      state.isAuthenticated = true;
       state.isError = false;
+      state.multipartData = action?.payload?.multipartData;
     });
-
-    builder.addCase(loginAsyncThunk.rejected, (state, action) => {
+    builder.addCase(signUpAsyncThunk.rejected, (state, action) => {
       state.authStatus = THUNK_STATUS.FAILED;
       state.isLoading = false;
       state.isError = true;
-      state.isAuthenticated = false;
     });
   },
 });
 
-export const {addToken} = authSlice.actions;
+export const {addToken} = signUpSlice.actions;
 export const authState = state => state.authStatus;
-export default authSlice.reducer;
+export default signUpSlice.reducer;
