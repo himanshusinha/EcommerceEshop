@@ -11,6 +11,8 @@ export default {
   color7: 'black',
   color8: 'grey',
   themeColor: '#8200d6',
+  themeColor_2: '#B06EDA',
+
   black: 'rgba(0,0,0,1)',
   blackOpacity50: 'rgba(0,0,0,0.5)',
   blackOpacity80: 'rgba(0,0,0,0.8)',

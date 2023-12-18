@@ -19,7 +19,9 @@ import {
   logOutAsyncThunk,
 } from '../../redux/asyncThunk/authAsyncThunk';
 import Toast from 'react-native-toast-message';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {resetAuthState, setAccessToken} from '../../redux/slices/auth.slices';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CustomDrawer = props => {
   const selectedRouteName = props.state.routes[props.state.index].name;
@@ -32,7 +34,9 @@ const CustomDrawer = props => {
   useEffect(() => {
     getProfile();
   }, []);
+
   const logOut = () => {
+    console.log('Logout button pressed');
     dispatch(logOutAsyncThunk())
       .unwrap()
       .then(res => {
@@ -41,12 +45,25 @@ const CustomDrawer = props => {
             type: 'success',
             text1: res.data.message,
           });
+
+          // Remove the accessToken from AsyncStorage
+          AsyncStorage.removeItem('accessToken').catch(error => {
+            console.error(
+              'Error removing access token from AsyncStorage:',
+              error,
+            );
+          });
+
+          dispatch(setAccessToken(null));
+
+          dispatch(resetAuthState());
+
           navigation.navigate(routes.LOGIN_SCREEN);
         }
       })
       .catch(err => {
         Toast.show({
-          type: 'success',
+          type: 'error',
           text1: err.data.message,
         });
       });
@@ -64,7 +81,7 @@ const CustomDrawer = props => {
         }
       })
       .catch(err => {
-        console.error(err); // Log any potential errors
+        console.error(err);
       });
   };
   return (
@@ -116,10 +133,9 @@ const CustomDrawer = props => {
             paddingTop: 10,
             paddingStart: 20,
           }}>
-          {/* Render "Home" item with conditional background color */}
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate(routes.HOME_SCREEN); // Navigate to the HomeScreen
+              navigation.navigate(routes.HOME_SCREEN);
             }}
             style={{
               paddingVertical: 15,
@@ -143,7 +159,6 @@ const CustomDrawer = props => {
             </View>
           </TouchableOpacity>
 
-          {/* Render "More" item with conditional background color */}
           <TouchableOpacity
             onPress={() => {}}
             style={{
@@ -165,6 +180,156 @@ const CustomDrawer = props => {
                   color: selectedRouteName === 'More' ? 'white' : 'black',
                 }}>
                 More
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(routes.CHANGE_PASSWORD_SCREEN);
+            }}
+            style={{
+              paddingVertical: 15,
+              backgroundColor: '#fff',
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Ionicons name="add-circle-outline" size={22} />
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontFamily: 'Roboto-Medium',
+                  marginLeft: 5,
+                  color: 'black',
+                }}>
+                Change Password
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(routes.RESET_PASSWORD_SCREEN);
+            }}
+            style={{
+              paddingVertical: 15,
+              backgroundColor: '#fff',
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Ionicons name="add-circle-outline" size={22} />
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontFamily: 'Roboto-Medium',
+                  marginLeft: 5,
+                  color: 'black',
+                }}>
+                Reset Password
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(routes.ADD_PRODUCT_SCREEN);
+            }}
+            style={{
+              paddingVertical: 15,
+              backgroundColor: '#fff',
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Ionicons name="add-circle-outline" size={22} />
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontFamily: 'Roboto-Medium',
+                  marginLeft: 5,
+                  color: 'black',
+                }}>
+                Add Products
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(routes.ADMIN_VIEW_PRODUCT_SCREEN);
+            }}
+            style={{
+              paddingVertical: 15,
+              backgroundColor: '#fff',
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Ionicons name="add-circle-outline" size={22} />
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontFamily: 'Roboto-Medium',
+                  marginLeft: 5,
+                  color: 'black',
+                }}>
+                View Products
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(routes.ADMIN_CATEGORIES_SCREEN);
+            }}
+            style={{
+              paddingVertical: 15,
+              backgroundColor: '#fff',
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Ionicons name="add-circle-outline" size={22} />
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontFamily: 'Roboto-Medium',
+                  marginLeft: 5,
+                  color: 'black',
+                }}>
+                Add Categories
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(routes.ADMIN_ORDERS_SCREEN);
+            }}
+            style={{
+              paddingVertical: 15,
+              backgroundColor: '#fff',
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Ionicons name="add-circle-outline" size={22} />
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontFamily: 'Roboto-Medium',
+                  marginLeft: 5,
+                  color: 'black',
+                }}>
+                Orders
               </Text>
             </View>
           </TouchableOpacity>

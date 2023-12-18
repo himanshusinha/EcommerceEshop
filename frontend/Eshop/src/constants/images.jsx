@@ -15,5 +15,10 @@ export default {
   Close: require('../assets/images/close.png'),
   Email: require('../assets/images/email.png'),
   Lock: require('../assets/images/lock.png'),
-
+  ChangePassword: require('../assets/images/change_password.png'),
+  Add: require('../assets/images/add.png'),
+  Trash_Light: require('../assets/images/trash_light.png'),
+  Trash_Can: require('../assets/images/trash_can.png'),
+  Edit: require('../assets/images/edit.png'),
+  Edit_Light: require('../assets/images/edit_light.png'),
 };

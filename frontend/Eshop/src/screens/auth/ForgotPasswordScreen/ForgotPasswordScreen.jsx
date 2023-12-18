@@ -33,42 +33,40 @@ const ForgotPasswordScreen = () => {
 
   const forgotPassword = async () => {
     setIsLoading(true);
-    dispatch(forgotPasswordThunk({email}))
-      .unwrap()
-      .then(res => {
-        setIsLoading(false); // Move this line outside the if-else block
-        if (res && res.status === 200) {
-          Toast.show({
-            type: 'success',
-            text1: res.data.message,
-          });
-          setIsLoading(false);
-        } else {
-          Toast.show({
-            type: 'success',
-            text1: 'Email sent on your emailid',
-          });
-          setIsLoading(false);
-        }
-      })
-      .catch(err => {
-        console.error(err); // Log the error for debugging purposes
 
-        if (err.response && err.response.data) {
-          Toast.show({
-            type: 'error',
-            text1: err.response.data.message || 'An error occurred',
-          });
-        } else {
-          Toast.show({
-            type: 'error',
-            text1: 'An error occurred',
-          });
-        }
-      })
-      .finally(() => {
-        setIsLoading(false);
+    try {
+      const res = await dispatch(forgotPasswordThunk({email}));
+      setIsLoading(false);
+
+      console.log('API Response:', res);
+
+      if (res && res.status === 200) {
+        const successMessage = res.payload.message;
+        Toast.show({
+          type: 'success',
+          text1: successMessage,
+        });
+      } else if (res && res.payload && res.payload.message) {
+        const errorMessage = res.payload.message;
+        Toast.show({
+          type: 'success',
+          text1: errorMessage,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: 'An error occurred. Please check the server response.',
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      Toast.show({
+        type: 'error',
+        text1: 'An error occurred. Please check your network connection.',
       });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

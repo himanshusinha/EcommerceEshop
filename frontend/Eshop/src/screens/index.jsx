@@ -7,3 +7,10 @@ export {default as SearchScreen} from '../screens/dashboard/search/SearchScreen'
 export {default as ProfileScreen} from '../screens/dashboard/profile/ProfileScreen';
 export {default as ProductDetailsScreen} from '../screens/dashboard/home/ProductDetailsScreen';
 export {default as CartScreen} from '../screens/dashboard/cart/cartScreen';
+export {default as ChangePasswordScreen} from './auth/ChangePassword/ChangePasswordScreen';
+export {default as ResetPasswordScreen} from './auth/ResetPassword/ResetPasswordScreen';
+export {default as AddProductsScreen} from './admin/addProducts/AddProductsScreen';
+export {default as AdminCategoriesScreen} from './admin/adminCategories/AdminCategoriesScreen';
+export {default as AdminOrdersScreen} from './admin/adminOrders/AdminOrdersScreen';
+export {default as AdminViewProductScreen} from './admin/adminViewProduct/AdminViewProductScreen';
+export {default as AdminEditProductsScreen} from './admin/adminEditProducts/AdminEditProductsScreen';

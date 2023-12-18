@@ -14,10 +14,11 @@ const styles = StyleSheet.create({
   },
   container: {
     marginStart: moderateScale(20),
-    shadowOffset: {width: 0, height: 2},
-    shadowColor: 'black',
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
+    elevation: 5, // Add elevation for Android
+    shadowColor: colors.BLACK, // Add shadow color for iOS
+    shadowOffset: {width: 0, height: 2}, // Add shadow offset for iOS
+    shadowOpacity: 0.3, // Add shadow opacity for iOS
+    shadowRadius: 2, // Add shadow radius for iOS
   },
   itemContainer: {
     height: moderateScale(250),
@@ -36,16 +37,22 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   image: {
-    width: 150,
-    height: 180,
+    width: moderateScale(100),
+    height: moderateScale(100),
     alignSelf: 'center',
-    bottom: moderateScale(10),
   },
   title: {
     marginStart: moderateScale(20),
     fontSize: moderateScale(16),
     fontWeight: 'bold',
     bottom: moderateScale(10),
+  },
+  sub_title: {
+    marginStart: moderateScale(20),
+    fontSize: moderateScale(12),
+    fontWeight: '400',
+    bottom: moderateScale(6),
+    color: colors.GRAY,
   },
   evenText: {
     color: colors.black,

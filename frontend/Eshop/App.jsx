@@ -8,7 +8,8 @@ import Toast from 'react-native-toast-message';
 import axios from 'axios';
 
 const App = () => {
-  const baseurl = 'https://eshop-services.onrender.com';
+  const baseurl = 'https://eshop-dqns.onrender.com';
+
   axios.defaults.baseURL = baseurl;
   return (
     <PaperProvider>

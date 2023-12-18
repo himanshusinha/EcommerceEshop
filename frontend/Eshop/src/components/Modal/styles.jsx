@@ -122,6 +122,10 @@ const styles = StyleSheet.create({
     width: '60%',
     top: moderateScale(5),
   },
+  closeIcon: {
+    width: moderateScale(20),
+    height: moderateScale(20),
+  },
 });
 
 export default styles;

@@ -1,50 +1,110 @@
-import {View, Text} from 'react-native';
-import React from 'react';
-import Carousel, {Pagination} from 'react-native-snap-carousel';
-import CarouselCardItem, {
-  ITEM_WIDTH,
-  SLIDER_WIDTH,
-} from '../../../components/CaroselCard/CarouselCardItem';
+import {FlatList, Image, Modal, ScrollView, Text, View} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {useIsFocused, useRoute} from '@react-navigation/native';
+import {getProductDetailsByIdThunk} from '../../../redux/asyncThunk/authAsyncThunk';
+import {useDispatch} from 'react-redux';
+import Loader from '../../../components/Loader/Loader';
 import colors from '../../../constants/colors';
-import {searchData} from '../../../constants/list';
-import WrapperContainer from '../../../components/WrapperContainer/WrapperContainer';
 import styles from './styles';
+import ButtonComp from '../../../components/Button/ButtonComp';
+import {moderateScale} from '../../../styles/responsiveSize';
 
 const ProductDetailsScreen = () => {
-  const [index, setIndex] = React.useState(0);
-  const isCarousel = React.useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const route = useRoute();
+  const dispatch = useDispatch();
+  const id = route?.params?.id;
+  const [productDetails, setProductDetails] = useState([]);
+  const [name, setName] = useState('');
+  const isFocused = useIsFocused();
+  const [description, setDescription] = useState('');
+
+  useEffect(() => {
+    setIsLoading(true);
+    dispatch(getProductDetailsByIdThunk({id: id}))
+      .unwrap()
+      .then(res => {
+        console.log(res?.data?.product, '....response from product details');
+        setProductDetails(res?.data?.product);
+        setName(res?.data?.product.name);
+        setDescription(res?.data?.product.description);
+
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.log(err);
+        setIsLoading(false);
+      });
+  }, [isFocused]);
+  const imagesArray = productDetails.images;
 
   return (
-    <WrapperContainer>
+    <View
+      style={{
+        backgroundColor: colors.DARK_GRAY,
+      }}>
+      {isLoading ? (
+        <Modal>
+          <Loader />
+        </Modal>
+      ) : null}
       <View
         style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: colors.white,
+          backgroundColor: colors.WHITE,
         }}>
-        <Carousel
-          layout="default"
-          layoutCardOffset={9}
-          ref={isCarousel}
-          data={searchData}
-          renderItem={CarouselCardItem}
-          sliderWidth={SLIDER_WIDTH}
-          itemWidth={ITEM_WIDTH}
-          onSnapToItem={index => setIndex(index)}
-          useScrollView={true}
+        <FlatList
+          data={imagesArray}
+          renderItem={({item}) => {
+            return (
+              <View>
+                <Image
+                  source={{uri: item.url}}
+                  style={{
+                    width: '100%',
+                    height: 200,
+                    marginTop: moderateScale(20),
+                  }}
+                  resizeMode="contain"
+                />
+              </View>
+            );
+          }}
+          keyExtractor={(item, index) => index.toString()}
         />
-
-        <Pagination
-          dotsLength={searchData.length}
-          activeDotIndex={index}
-          carouselRef={isCarousel}
-          dotStyle={styles.dotStyle}
-          inactiveDotOpacity={0.3}
-          inactiveDotScale={0.6}
-          tappableDots={true}
-        />
+        <ScrollView
+          style={{
+            backgroundColor: colors.WHITE,
+            height: moderateScale(350),
+            marginHorizontal: moderateScale(20),
+            marginTop: moderateScale(30),
+          }}>
+          <Text>{name}</Text>
+          <Text>{description}</Text>
+        </ScrollView>
+        <View style={styles.btnRowStyle}>
+          <View
+            style={{
+              flex: 0.6,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <ButtonComp text="Add to cart" />
+          </View>
+          <View
+            style={{
+              flex: 0.4,
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'row',
+              marginHorizontal: 10,
+            }}>
+            <ButtonComp text="-" style={styles.btnCompStyle} />
+            <Text style={styles.btnCountStyle}>0</Text>
+            <ButtonComp text="+" style={styles.btnCompStyle} />
+          </View>
+        </View>
       </View>
-    </WrapperContainer>
+    </View>
   );
 };
 

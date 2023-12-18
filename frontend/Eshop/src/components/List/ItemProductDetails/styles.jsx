@@ -1,4 +1,4 @@
-import {moderateScale} from '../../styles/responsiveSize';
+import {moderateScale} from '../../../styles/responsiveSize';
 
 import {Dimensions, StyleSheet} from 'react-native';
 

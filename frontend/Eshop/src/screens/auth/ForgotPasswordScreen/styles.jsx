@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
   },
   viewStyle: {
     marginTop: moderateScaleVertical(10),
+    
   },
   errorText: {
     color: colors.RED,

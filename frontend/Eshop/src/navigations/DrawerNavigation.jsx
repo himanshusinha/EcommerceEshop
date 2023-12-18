@@ -8,6 +8,16 @@ import CustomDrawer from '../components/CustomDrawer/CustomDrawer';
 import {View, TouchableOpacity, Image, Text} from 'react-native';
 import images from '../constants/images';
 import {moderateScale} from '../styles/responsiveSize';
+import {
+  AddProductsScreen,
+  AdminCategoriesScreen,
+  AdminEditProductsScreen,
+  AdminOrdersScreen,
+  AdminView,
+  AdminViewProductScreen,
+  ChangePasswordScreen,
+  ResetPasswordScreen,
+} from '../screens';
 
 const Drawer = createDrawerNavigator();
 
@@ -85,6 +95,35 @@ function DrawerNavigation() {
       }}
       drawerContent={props => <CustomDrawer {...props} />}>
       <Drawer.Screen component={BottomNavigation} name={routes.HOME_SCREEN} />
+      <Drawer.Screen
+        component={ResetPasswordScreen}
+        name={routes.RESET_PASSWORD_SCREEN}
+      />
+      <Drawer.Screen
+        component={ChangePasswordScreen}
+        name={routes.CHANGE_PASSWORD_SCREEN}
+      />
+      <Drawer.Screen
+        component={AddProductsScreen}
+        name={routes.ADD_PRODUCT_SCREEN}
+      />
+      <Drawer.Screen
+        component={AdminOrdersScreen}
+        name={routes.ADMIN_ORDERS_SCREEN}
+      />
+
+      <Drawer.Screen
+        component={AdminViewProductScreen}
+        name={routes.ADMIN_VIEW_PRODUCT_SCREEN}
+      />
+      <Drawer.Screen
+        component={AdminCategoriesScreen}
+        name={routes.ADMIN_CATEGORIES_SCREEN}
+      />
+      <Drawer.Screen
+        component={AdminEditProductsScreen}
+        name={routes.ADMIN_EDIT_PRODUCTS_SCREEN}
+      />
     </Drawer.Navigator>
   );
 }

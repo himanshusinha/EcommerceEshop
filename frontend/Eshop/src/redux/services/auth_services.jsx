@@ -1,6 +1,7 @@
 // auth_services.js
 import Axios from 'axios';
-import {METHODS, SERVICE_ROUTES} from '../constants';
+import {ASYNC_ROUTES, METHODS, SERVICE_ROUTES, replaceUrl} from '../constants';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 
 //loginService
 export const loginService = data => {
@@ -79,6 +80,24 @@ export const forgetPasswordService = data => {
       });
   });
 };
+//logOutService
+export const logOutService = data => {
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: SERVICE_ROUTES.LOGOUT,
+      method: METHODS.GET,
+      data,
+    };
+    Axios.request(config)
+      .then(res => {
+        console.log(res, '............response login service');
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
 //getCategoriesService
 export const getCategoriesService = () => {
   return new Promise((resolve, reject) => {
@@ -86,7 +105,6 @@ export const getCategoriesService = () => {
       url: SERVICE_ROUTES.GET_CATEGORIES,
       method: METHODS.GET,
     };
-    console.log(config, '.......config');
 
     Axios.request(config)
       .then(res => {
@@ -99,10 +117,10 @@ export const getCategoriesService = () => {
   });
 };
 //getProductService
-export const getProductService = () => {
+export const getAdminProductService = () => {
   return new Promise((resolve, reject) => {
     let config = {
-      url: SERVICE_ROUTES.GET_PRODUCTS,
+      url: SERVICE_ROUTES.GET_ADMIN_PRODUCTS,
       method: METHODS.GET,
     };
     console.log(config, '.......config');
@@ -139,10 +157,104 @@ export const updateProfileService = data => {
 };
 
 //updateProfilePicService
-export const updateProfilePicService = data => {
+export const updateProductDetailsByIdService = id => {
+  // console.log(id, 'service get id'); // Uncomment for debugging
   return new Promise((resolve, reject) => {
     let config = {
-      url: SERVICE_ROUTES.UPDATE_PROFILE_PIC,
+      url: replaceUrl(SERVICE_ROUTES.UPDATE_ADMIN_PRODUCT_BY_ID, id),
+      method: METHODS.PUT,
+    };
+    Axios.request(config)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+// changePasswordService
+export const changePasswordService = data => {
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: SERVICE_ROUTES.CHANGE_PASSWORD,
+      method: METHODS.PUT,
+      data,
+    };
+    Axios.request(config)
+      .then(res => {
+        console.log(res, '......response from change password service');
+        resolve(res);
+      })
+      .catch(err => {
+        console.error(err, '......error from change password service');
+        reject(err);
+      });
+  });
+};
+//resetPasswordService
+export const resetPasswordService = data => {
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: SERVICE_ROUTES.RESET_PASSWORD,
+      method: METHODS.PUT,
+      data,
+    };
+
+    Axios.request(config)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+//addProductServices
+export const addProductServices = data => {
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: SERVICE_ROUTES.ADD_PRODUCTS,
+      method: METHODS.POST,
+      headers: {'Content-Type': 'multipart/form-data'},
+      data: data, // Make sure the data is passed correctly
+    };
+
+    Axios.request(config)
+      .then(res => {
+        console.log(res, '.......response from signup services');
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+//getProductDetailsByIdServices
+export const getProductDetailsByIdService = id => {
+  // console.log(id, 'service get id'); // Uncomment for debugging
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: replaceUrl(SERVICE_ROUTES.GET_PRODUCTS_DETAILS_BY_ID, id),
+      method: METHODS.GET,
+    };
+    Axios.request(config)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+//addProductServices
+export const updateProductDetailsById = data => {
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: SERVICE_ROUTES.updateProductDetailsByIdService,
       method: METHODS.PUT,
       headers: {'Content-Type': 'multipart/form-data'},
       data,
@@ -151,6 +263,111 @@ export const updateProfilePicService = data => {
     Axios.request(config)
       .then(res => {
         console.log(res, '.......response from update profile pic services');
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+//addAdmincategoriestService
+export const addAdminCategoriesService = data => {
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: SERVICE_ROUTES.ADD_ADMIN_CATEGORIES,
+      method: METHODS.POST,
+      data,
+    };
+
+    Axios.request(config)
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+//deleteAdminCategoriesByIdService
+export const deleteAdminCategoriesByIdService = ({id}) => {
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: replaceUrl(SERVICE_ROUTES.DELETE_ADMIN_CATEGORIES_BY_ID, {id}),
+      method: METHODS.DELETE,
+      id,
+    };
+    Axios.request(config)
+      .then(res => {
+        console.log(res, '.......response from delete service');
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+//updateProfilePicService
+export const updateProductPicByIdService = ({id}) => {
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: replaceUrl(SERVICE_ROUTES.UPDATE_PRODUCT_PIC_BY_ID, {id}),
+      method: METHODS.PUT,
+      headers: {'Content-Type': 'multipart/form-data'},
+    };
+
+    Axios.request(config)
+      .then(res => {
+        console.log(res, 'Response from update product pic service');
+        resolve(res);
+      })
+      .catch(err => {
+        console.error(err, 'Error updating product pic');
+        console.log('Error response:', err.response); // Log the response details
+        console.log('Request:', err.request); // Log the request details
+        reject(err); // Reject with the error for further handling
+      });
+  });
+};
+
+//updateAdminProductByIdSerice
+
+export const updateAdminProductByIdService = ({
+  id,
+  name,
+  description,
+  price,
+  stock,
+  category,
+}) => {
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: replaceUrl(SERVICE_ROUTES.UPDATE_ADMIN_PRODUCT_BY_ID, {id}),
+      method: METHODS.PUT,
+      data: {name, description, price, stock, category},
+    };
+    Axios.request(config)
+      .then(res => {
+        console.log(res, '.......response from update service');
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+export const deleteAdminProductByIdService = ({id}) => {
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: replaceUrl(SERVICE_ROUTES.DELETE_ADMIN_PRODUCT_BY_ID, {id}),
+      method: METHODS.DELETE,
+      id,
+    };
+    Axios.request(config)
+      .then(res => {
+        console.log(res, '.......response from delete service');
         resolve(res);
       })
       .catch(err => {

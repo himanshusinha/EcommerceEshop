@@ -131,8 +131,7 @@ const SignUpScreen = () => {
       };
       formData.append('file', file);
     }
-    dispatch(signUpAsyncThunk(formData));
-    setIsLoading(true)
+    dispatch(signUpAsyncThunk(formData))
       .unwrap()
       .then(res => {
         console.log('res...........', res);
@@ -146,7 +145,7 @@ const SignUpScreen = () => {
         } else {
           Toast.show({
             type: 'error',
-            text1: 'Incorrect Email Or Password',
+            text1: res.data.message,
           });
           setIsLoading(false);
         }

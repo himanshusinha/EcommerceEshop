@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {moderateScale} from '../../../styles/responsiveSize';
 import colors from '../../../constants/colors';
-import {ITEM_WIDTH} from '../../../components/CaroselCard/CarouselCardItem';
+import {ITEM_WIDTH} from '../../../components/List/ItemProductDetails/ItemProductDetails';
 
 const styles = StyleSheet.create({
   listStyle: {paddingHorizontal: moderateScale(10)},
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     flex: 0.4,
     width: '50%',
     alignItems: 'center',
+    marginTop: moderateScale(100),
   },
   container: {
     marginTop: moderateScale(20),
@@ -61,11 +62,14 @@ const styles = StyleSheet.create({
   btnCountStyle: {
     fontSize: moderateScale(18),
     color: 'black',
+    alignSelf: 'center',
+    marginHorizontal: 10,
   },
   btnRowStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: moderateScale(20),
+    marginTop: moderateScale(20),
   },
 });
 

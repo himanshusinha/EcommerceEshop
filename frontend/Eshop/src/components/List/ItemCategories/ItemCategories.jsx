@@ -18,7 +18,7 @@ const ItemCategories = ({item, isSelected, onPress}) => {
         ]}
         onPress={onPress}>
         <Text style={{color: isSelected ? colors.white : colors.black}}>
-          {item.title}
+          {item.category}
         </Text>
       </TouchableOpacity>
     </View>

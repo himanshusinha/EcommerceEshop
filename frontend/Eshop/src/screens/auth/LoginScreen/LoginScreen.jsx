@@ -23,14 +23,14 @@ import {useNavigation} from '@react-navigation/native';
 import routes from '../../../constants/routes';
 import {moderateVerticalScale} from 'react-native-size-matters';
 import images from '../../../constants/images';
+
 const LoginScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
-
   const [password, setPassword] = useState('');
-
   const [isLoading, setIsLoading] = useState(false);
+
   const checkValidation = () => {
     if (email === null || email.trim() === '') {
       Toast.show({
@@ -42,11 +42,11 @@ const LoginScreen = () => {
         type: 'error',
         text1: 'Please enter password',
       });
-    } else login();
+    } else {
+      login();
+    }
   };
-
   const login = async () => {
-    setIsLoading(true);
     dispatch(loginAsyncThunk({email, password}))
       .unwrap()
       .then(res => {
@@ -55,7 +55,6 @@ const LoginScreen = () => {
             type: 'success',
             text1: res.data.message,
           });
-          // navigation.navigate(() => Routes.HOME);
           setIsLoading(false);
         } else {
           Toast.show({
@@ -67,9 +66,9 @@ const LoginScreen = () => {
       })
       .catch(err => {
         console.log(err);
-        setIsLoading(false);
       });
   };
+
   return (
     <View style={styles.container}>
       <WrapperContainer contentContainerStyle={styles.scrollStyle}>
@@ -152,10 +151,10 @@ const LoginScreen = () => {
               />
             </View>
             <View style={styles.bottomContainer}>
-              <Text style={styles.signUpText}>Already have an account?</Text>
+              <Text style={styles.signUpText}>Don't have an account?</Text>
               <TouchableOpacity
-                onPress={() => navigation.navigate(routes.LOGIN_SCREEN)}>
-                <Text style={styles.signUpButton}> Login</Text>
+                onPress={() => navigation.navigate(routes.SIGN_UP_SCREEN)}>
+                <Text style={styles.signUpButton}>Sign Up</Text>
               </TouchableOpacity>
             </View>
           </View>

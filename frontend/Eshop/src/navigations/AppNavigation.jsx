@@ -1,7 +1,11 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import routes from '../constants/routes';
-import {BottomNavigation, ProductDetailsScreen} from '../screens';
+import {
+  AdminOrdersScreen,
+  BottomNavigation,
+  ProductDetailsScreen,
+} from '../screens';
 import ForgotPasswordScreen from '../screens/auth/ForgotPasswordScreen/ForgotPasswordScreen';
 
 const Stack = createNativeStackNavigator();

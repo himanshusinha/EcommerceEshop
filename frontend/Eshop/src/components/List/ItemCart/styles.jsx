@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   addToCartContainer: {
     justifyContent: 'space-between',
-    flex: 0.7,
+    flex: 0.70,
     width: '50%',
     alignItems: 'center',
     flexDirection: 'row',
