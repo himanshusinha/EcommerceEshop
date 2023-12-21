@@ -2,6 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {ASYNC_ROUTES} from '../constants/redux.constant';
 import {
   addAdminCategoriesService,
+  addAdminProductImagesByIdServices,
   addProductServices,
   changePasswordService,
   deleteAdminCategoriesByIdService,
@@ -15,11 +16,14 @@ import {
   loginService,
   resetPasswordService,
   signUpService,
-  updateAdminProductByIdSerice,
+  updateAdminProductByIdService,
   updateProductPicByIdService,
-  updateProfilePicService,
+  updateProductPicService,
   updateProfileService,
 } from '../services/auth_services';
+import Axios from 'axios';
+import axios from 'axios';
+import {SEARCH_ADMIN_PRODUCTS} from '../constants/service.constant';
 //loginThunk
 export const loginAsyncThunk = createAsyncThunk(
   ASYNC_ROUTES.LOGIN,
@@ -112,11 +116,11 @@ export const getAdminProductAsyncThunk = createAsyncThunk(
   },
 );
 //updateProfilePicThunk
-export const updateProfilePicByIdAsyncThunk = createAsyncThunk(
+export const updateProfilePicThunk = createAsyncThunk(
   ASYNC_ROUTES.UPDATE_PROFILE_PIC,
   async (payload, {rejectWithValue}) => {
     try {
-      const response = await updateProductPicByIdService(payload);
+      const response = await updateProductPicService(payload);
       console.log(response, '.........update profile pic');
       return response.data;
     } catch (err) {
@@ -229,7 +233,38 @@ export const deleteAdminCategoriesByIdThunk = createAsyncThunk(
     }
   },
 );
-
+//addAdminProductsImagesByIdThunk
+export const addAdminProductsImagesByIdThunk = createAsyncThunk(
+  ASYNC_ROUTES.ADD_PRODUCTS_IMAGES_BY_ID,
+  async ({formData, id}, {rejectWithValue}) => {
+    try {
+      const response = await addAdminProductImagesByIdServices({formData, id});
+      console.log(response, '.......response from service');
+      return response;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  },
+);
+//deleteAdminProductImageByIdThunk
+export const deleteAdminProductImageByIdThunk = createAsyncThunk(
+  'product/deleteImageById',
+  async ({id, imageId}) => {
+    try {
+      const response = await Axios.delete(
+        `https://eshop-dqns.onrender.com/api/v1/product/images/${id}?id=${imageId}`,
+        {
+          headers: {
+            'Content-Type': 'application/json', // Add headers if needed
+          },
+        },
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+);
 //updateAdminProductByIdAsyncThunk
 export const updateAdminProductByIdAsyncThunk = createAsyncThunk(
   ASYNC_ROUTES.UPDATE_ADMIN_PRODUCT_BY_ID,
@@ -238,7 +273,7 @@ export const updateAdminProductByIdAsyncThunk = createAsyncThunk(
     {rejectWithValue},
   ) => {
     try {
-      const response = await updateAdminProductByIdSerice({
+      const response = await updateAdminProductByIdService({
         id,
         name,
         description,
@@ -247,13 +282,13 @@ export const updateAdminProductByIdAsyncThunk = createAsyncThunk(
         category,
       });
       console.log(response, '.......response from update admin service');
-
       return response;
     } catch (err) {
       return rejectWithValue(err);
     }
   },
 );
+
 //updateProductPicAsyncThunk
 export const updateProductPicByIdAsyncThunk = createAsyncThunk(
   ASYNC_ROUTES.UPDATE_PRODUCT_PIC_BY_ID,
@@ -268,7 +303,7 @@ export const updateProductPicByIdAsyncThunk = createAsyncThunk(
 );
 //deleteAdminProductByIdThunk
 export const deleteAdminProductByIdThunk = createAsyncThunk(
-  ASYNC_ROUTES.DELETE_ADMIN_CATEGORIES_BY_ID,
+  ASYNC_ROUTES.DELETE_ADMIN_PRODUCT_BY_ID,
   async ({id}, {rejectWithValue}) => {
     try {
       const response = await deleteAdminProductByIdService({id});
@@ -277,6 +312,20 @@ export const deleteAdminProductByIdThunk = createAsyncThunk(
       return response;
     } catch (err) {
       return rejectWithValue(err);
+    }
+  },
+);
+//searchAdminProductsThunk
+export const searchAdminProductsThunk = createAsyncThunk(
+  'product/searchAdminProducts',
+  async ({category, keyword}, {rejectWithValue}) => {
+    try {
+      const response = await axios.get(
+        `${SEARCH_ADMIN_PRODUCTS}?category=${category}&keyword=${keyword}`,
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
     }
   },
 );

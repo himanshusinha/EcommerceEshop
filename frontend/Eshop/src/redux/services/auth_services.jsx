@@ -1,7 +1,7 @@
 // auth_services.js
 import Axios from 'axios';
-import {ASYNC_ROUTES, METHODS, SERVICE_ROUTES, replaceUrl} from '../constants';
-import {createAsyncThunk} from '@reduxjs/toolkit';
+import {METHODS, SERVICE_ROUTES, replaceUrl} from '../constants';
+import {SEARCH_ADMIN_PRODUCTS} from '../constants/service.constant';
 
 //loginService
 export const loginService = data => {
@@ -135,6 +135,29 @@ export const getAdminProductService = () => {
       });
   });
 };
+// //updateProfileService
+export const updateProductPicService = data => {
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: SERVICE_ROUTES.UPDATE_PROFILE_PIC,
+      method: METHODS.PUT,
+      headers: {'Content-Type': 'multipart/form-data'},
+      data,
+    };
+
+    Axios.request(config)
+      .then(res => {
+        console.log(res, 'Response from update product pic service');
+        resolve(res);
+      })
+      .catch(err => {
+        console.error(err, 'Error updating product pic');
+        console.log('Error response:', err.response); // Log the response details
+        console.log('Request:', err.request); // Log the request details
+        reject(err); // Reject with the error for further handling
+      });
+  });
+};
 //updateProfileService
 export const updateProfileService = data => {
   return new Promise((resolve, reject) => {
@@ -155,7 +178,6 @@ export const updateProfileService = data => {
       });
   });
 };
-
 //updateProfilePicService
 export const updateProductDetailsByIdService = id => {
   // console.log(id, 'service get id'); // Uncomment for debugging
@@ -289,13 +311,12 @@ export const addAdminCategoriesService = data => {
       });
   });
 };
-//deleteAdminCategoriesByIdService
-export const deleteAdminCategoriesByIdService = ({id}) => {
+//deleteAdminProductByIdService
+export const deleteAdminProductByIdService = ({id}) => {
   return new Promise((resolve, reject) => {
     let config = {
-      url: replaceUrl(SERVICE_ROUTES.DELETE_ADMIN_CATEGORIES_BY_ID, {id}),
+      url: replaceUrl(SERVICE_ROUTES.DELETE_ADMIN_PRODUCT_BY_ID, {id}),
       method: METHODS.DELETE,
-      id,
     };
     Axios.request(config)
       .then(res => {
@@ -308,31 +329,54 @@ export const deleteAdminCategoriesByIdService = ({id}) => {
   });
 };
 
-//updateProfilePicService
-export const updateProductPicByIdService = ({id}) => {
+//addAdminProductImagesByIdServices
+export const addAdminProductImagesByIdServices = ({formData, id}) => {
   return new Promise((resolve, reject) => {
     let config = {
-      url: replaceUrl(SERVICE_ROUTES.UPDATE_PRODUCT_PIC_BY_ID, {id}),
-      method: METHODS.PUT,
-      headers: {'Content-Type': 'multipart/form-data'},
+      url: replaceUrl(SERVICE_ROUTES.ADD_PRODUCTS_IMAGES_BY_ID, {id}),
+      method: METHODS.POST,
+      data: formData,
     };
-
     Axios.request(config)
       .then(res => {
-        console.log(res, 'Response from update product pic service');
+        console.log(res, '.......response from service');
         resolve(res);
       })
       .catch(err => {
-        console.error(err, 'Error updating product pic');
-        console.log('Error response:', err.response); // Log the response details
-        console.log('Request:', err.request); // Log the request details
-        reject(err); // Reject with the error for further handling
+        reject(err);
       });
   });
 };
+//deleteAdminProductImagesByIdServices
+// In your authAsyncThunk.js or equivalent file:
+
+export const deleteAdminProductImageByIdThunk =
+  ({id, imageId}) =>
+  async dispatch => {
+    try {
+      const response = await fetch(
+        `/api/v1/product/images/${id}?id=${imageId}`,
+        {
+          method: 'DELETE',
+        },
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        dispatch({type: 'DELETE_PRODUCT_IMAGE_SUCCESS', payload: data});
+        return data;
+      } else {
+        dispatch({type: 'DELETE_PRODUCT_IMAGE_FAILURE', payload: data});
+        throw new Error(data.message || 'Failed to delete image');
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
 
 //updateAdminProductByIdSerice
-
 export const updateAdminProductByIdService = ({
   id,
   name,
@@ -358,20 +402,14 @@ export const updateAdminProductByIdService = ({
   });
 };
 
-export const deleteAdminProductByIdService = ({id}) => {
-  return new Promise((resolve, reject) => {
-    let config = {
-      url: replaceUrl(SERVICE_ROUTES.DELETE_ADMIN_PRODUCT_BY_ID, {id}),
-      method: METHODS.DELETE,
-      id,
-    };
-    Axios.request(config)
-      .then(res => {
-        console.log(res, '.......response from delete service');
-        resolve(res);
-      })
-      .catch(err => {
-        reject(err);
-      });
-  });
+//searchAdminProductsService
+export const searchAdminProductsService = async ({category, keyword}) => {
+  try {
+    const response = await axios.get(
+      `${SEARCH_ADMIN_PRODUCTS}?category=${category}&keyword=${keyword}`,
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
 };

@@ -9,6 +9,8 @@ import {getAdminProductAsyncThunk} from '../../../redux/asyncThunk/authAsyncThun
 import {useDispatch} from 'react-redux';
 import Loader from '../../../components/Loader/Loader';
 import {useIsFocused} from '@react-navigation/native';
+import routes from '../../../constants/routes';
+import {addToCart} from '../../../redux/slices/cart.slice';
 
 const HomeScreen = () => {
   const [selectedItem, setSelectedItem] = useState();
@@ -24,6 +26,19 @@ const HomeScreen = () => {
       product => product.category?._id === categoryId,
     );
     setFilteredProducts(filtered);
+  };
+
+  const handleProductPress = () => {
+    const {id, name, price, imageUrl} = item;
+    const cartItem = {
+      id,
+      name,
+      price,
+      image: imageUrl,
+      quantity: 1, // Default quantity is 1
+    };
+    navigation.navigate(routes.PRODUCT_DETAILS_SCREEN, {id: id});
+    dispatch(addToCart(cartItem));
   };
 
   useEffect(() => {
@@ -81,7 +96,13 @@ const HomeScreen = () => {
           showsHorizontalScrollIndicator={false}
           data={filteredProducts}
           renderItem={({item, index}) => {
-            return <ItemProducts item={item} index={index} />;
+            return (
+              <ItemProducts
+                item={item}
+                index={index}
+                onPress={handleProductPress}
+              />
+            );
           }}
         />
       </View>

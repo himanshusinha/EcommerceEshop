@@ -3,12 +3,17 @@ import React from 'react';
 import images from '../../constants/images';
 import styles from './styles';
 
-const Search = ({placeholder}) => {
+const Search = ({placeholder, value, onChangeText}) => {
   return (
     <View style={styles.container}>
       <View style={styles.rowContainer}>
         <Image source={images.Search} style={styles.searchIcon} />
-        <TextInput placeholder={placeholder} style={styles.input} />
+        <TextInput
+          value={value}
+          onChangeText={onChangeText}
+          placeholder={placeholder}
+          style={styles.input}
+        />
       </View>
     </View>
   );

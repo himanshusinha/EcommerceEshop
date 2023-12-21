@@ -14,7 +14,7 @@ const ProductDetailsScreen = () => {
   const route = useRoute();
   const dispatch = useDispatch();
   const id = route?.params?.id;
-  const [productDetails, setProductDetails] = useState([]);
+  const [productDetails, setProductDetails] = useState({});
   const [name, setName] = useState('');
   const isFocused = useIsFocused();
   const [description, setDescription] = useState('');
@@ -37,6 +37,7 @@ const ProductDetailsScreen = () => {
       });
   }, [isFocused]);
   const imagesArray = productDetails.images;
+  console.log(imagesArray, '.........array of images');
 
   return (
     <View
@@ -51,32 +52,57 @@ const ProductDetailsScreen = () => {
       <View
         style={{
           backgroundColor: colors.WHITE,
+          flexGrow: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
         }}>
-        <FlatList
-          data={imagesArray}
-          renderItem={({item}) => {
-            return (
-              <View>
-                <Image
-                  source={{uri: item.url}}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={imagesArray}
+            contentContainerStyle={{
+              flexGrow: 1,
+              paddingLeft: moderateScale(10),
+              paddingRight: moderateScale(10),
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            renderItem={({item}) => {
+              return (
+                <View
                   style={{
-                    width: '100%',
+                    width: 200,
                     height: 200,
                     marginTop: moderateScale(20),
-                  }}
-                  resizeMode="contain"
-                />
-              </View>
-            );
-          }}
-          keyExtractor={(item, index) => index.toString()}
-        />
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Image
+                    source={{uri: item.url}}
+                    style={{
+                      width: 200,
+                      height: 200,
+                      resizeMode: 'contain',
+                    }}
+                  />
+                </View>
+              );
+            }}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
+
         <ScrollView
           style={{
             backgroundColor: colors.WHITE,
             height: moderateScale(350),
             marginHorizontal: moderateScale(20),
-            marginTop: moderateScale(30),
           }}>
           <Text>{name}</Text>
           <Text>{description}</Text>

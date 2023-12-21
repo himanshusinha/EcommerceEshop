@@ -31,4 +31,5 @@ export default {
   HOME_STACK: 'HomeStack',
   ADMIN_VIEW: 'AdminView',
   ADMIN_EDIT_PRODUCTS_SCREEN: 'AdminEditProductsScreen',
+  ADMIN_MANANGE_IMAGE_SCREEN: 'AdminManageImagesScreen',
 };

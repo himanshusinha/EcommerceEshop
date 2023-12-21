@@ -1,9 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {THUNK_STATUS} from '../constants/redux.constant';
-import {
-  getAdminProductAsyncThunk,
-  getProductAsyncThunk,
-} from '../asyncThunk/authAsyncThunk';
+import {getAdminProductAsyncThunk} from '../asyncThunk/authAsyncThunk';
 
 const initialState = {
   products: [],

@@ -20,20 +20,16 @@ import {
 } from '../../../styles/responsiveSize';
 import ButtonComp from '../../../components/Button/ButtonComp';
 import images from '../../../constants/images';
-import mime from 'mime';
 import {
   getCategoriesThunk,
   getProductDetailsByIdThunk,
   updateAdminProductByIdAsyncThunk,
-  updateProductPicAsyncThunk,
-  updateProductPicByIdAsyncThunk,
-  updateProfilePicAsyncThunk,
 } from '../../../redux/asyncThunk/authAsyncThunk';
 import Loader from '../../../components/Loader/Loader';
 import Toast from 'react-native-toast-message';
 import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
 import SelectComponent from '../../../components/SelectComponent/SelectComponent';
-import {updateAdminProductByIdService} from '../../../redux/services/auth_services';
+import routes from '../../../constants/routes';
 const AdminEditProductsScreen = () => {
   const [selectedImage, setSelectedImage] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -49,7 +45,7 @@ const AdminEditProductsScreen = () => {
   const navigation = useNavigation();
   const routes = useRoute();
   const id = routes?.params?.id;
-  console.log(id, '........id');
+  console.log(id, '........params id');
   const showModal = () => {
     setModalVisible(true);
   };
@@ -71,7 +67,7 @@ const AdminEditProductsScreen = () => {
   const [imageUrl, setImageUrl] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
-  const imageUrls = routes.params.imageURL;
+  const imageUrls = routes?.params?.imageURL;
   console.log(imageUrls, '......imageurl');
   const checkValidation = () => {
     if (name === null || name.trim() === '') {
@@ -151,7 +147,7 @@ const AdminEditProductsScreen = () => {
     try {
       const adminProductUpdateResponse = await dispatch(
         updateAdminProductByIdAsyncThunk({
-          id: id,
+          id,
           name,
           description,
           price,
@@ -165,10 +161,6 @@ const AdminEditProductsScreen = () => {
             adminProductUpdateResponse,
             '...admin product update response',
           ),
-          Toast.show({
-            type: 'success',
-            text1: 'Product Updated Successfully',
-          }),
         )
         .catch(err => console.log(err));
 
@@ -238,6 +230,18 @@ const AdminEditProductsScreen = () => {
                       />
                     </TouchableOpacity>
                   </ImageBackground>
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate('AdminManageImagesScreen', {
+                        id: id,
+                        imageURL: routes?.params?.imageURL,
+                      })
+                    }
+                    style={{marginTop: moderateScaleVertical(20)}}>
+                    <Text style={{color: colors.themeColor}}>
+                      Manage Images
+                    </Text>
+                  </TouchableOpacity>
                 </View>
                 <View style={styles.viewStyle}>
                   <TextInputWithLabel

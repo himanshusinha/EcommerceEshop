@@ -23,9 +23,9 @@ import images from '../../../constants/images';
 import mime from 'mime';
 import {
   getProfileAsyncThunk,
-  signUpAsyncThunk,
   updateProfileAsyncThunk,
   updateProfilePicAsyncThunk,
+  updateProfilePicThunk,
 } from '../../../redux/asyncThunk/authAsyncThunk';
 import Loader from '../../../components/Loader/Loader';
 import Toast from 'react-native-toast-message';
@@ -110,7 +110,7 @@ const ProfileScreen = () => {
       });
     }
     try {
-      await dispatch(updateProfilePicAsyncThunk(formData));
+      await dispatch(updateProfilePicThunk(formData));
       Toast.show({
         type: 'success',
         text1: 'Profile Pic Updated Successfully',
@@ -121,7 +121,10 @@ const ProfileScreen = () => {
           type: 'success',
           text1: 'Profile Updated Successfully',
         }),
-      );
+      )
+        .unwrap()
+        .then(res => console.log(res, '...........profle Update successfully'))
+        .catch(err => console.log(err, '...........error update profile'));
       setIsLoading(false);
 
       // Show success message or perform any additional actions

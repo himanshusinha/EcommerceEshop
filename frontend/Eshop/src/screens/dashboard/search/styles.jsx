@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
-    justifyContent: 'center',
   },
 });
 export default styles;

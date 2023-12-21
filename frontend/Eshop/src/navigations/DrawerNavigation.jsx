@@ -18,6 +18,7 @@ import {
   ChangePasswordScreen,
   ResetPasswordScreen,
 } from '../screens';
+import AdminManageImagesScreen from '../screens/admin/adminManageImages/AdminManageImagesScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -123,6 +124,10 @@ function DrawerNavigation() {
       <Drawer.Screen
         component={AdminEditProductsScreen}
         name={routes.ADMIN_EDIT_PRODUCTS_SCREEN}
+      />
+      <Drawer.Screen
+        component={AdminManageImagesScreen}
+        name={routes.ADMIN_MANANGE_IMAGE_SCREEN}
       />
     </Drawer.Navigator>
   );

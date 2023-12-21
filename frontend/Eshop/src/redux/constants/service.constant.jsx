@@ -13,6 +13,8 @@ export const SERVICE_ROUTES = {
   CHANGE_PASSWORD: '/api/v1/user/changepassword',
   RESET_PASSWORD: '/api/v1/user/forgetpassword',
   ADD_PRODUCTS: '/api/v1/product/new',
+  ADD_PRODUCTS_IMAGES_BY_ID: '/api/v1/product/images/:id',
+  DELETE_ADMIN_PRODUCTS_IMAGES_BY_ID: '/api/v1/product/images/:id?id=imageId',
   ADD_ADMIN_CATEGORIES: '/api/v1/product/category',
   DELETE_ADMIN_CATEGORIES_BY_ID: 'api/v1/product/category/:id',
   GET_PRODUCTS_DETAILS_BY_ID: '/api/v1/product/single/:id',
@@ -20,6 +22,8 @@ export const SERVICE_ROUTES = {
   UPDATE_PRODUCT_PIC_BY_ID: '/api/v1/product/images/:id',
   UPDATE_ADMIN_PRODUCT_BY_ID: '/api/v1/product/single/:id',
   DELETE_ADMIN_PRODUCT_BY_ID: '/api/v1/product/single/:id',
+  SEARCH_ADMIN_PRODUCTS:
+    '/api/v1/product/all?category=6568bc8a901888597bbcadef&keywood=book',
 };
 //===================   Methods ==============================
 export const METHODS = {

@@ -22,7 +22,9 @@ import ButtonComp from '../../../components/Button/ButtonComp';
 import images from '../../../constants/images';
 import mime from 'mime';
 import {
+  addAdminProductsImagesByIdThunk,
   addProductsThunk,
+  getAdminProductAsyncThunk,
   getCategoriesThunk,
   signUpAsyncThunk,
 } from '../../../redux/asyncThunk/authAsyncThunk';
@@ -36,6 +38,8 @@ const AddProductsScreen = () => {
   const [imageFile, setImageFile] = useState();
   const [categories, setCategories] = useState([]);
   const isFocused = useIsFocused();
+  const [productId, setProductId] = useState([]);
+  console.log(productId, '.........productIdd');
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const showModal = () => {
@@ -92,6 +96,30 @@ const AddProductsScreen = () => {
     setImageFile(file);
   };
   useEffect(() => {
+    setIsLoading(true);
+    dispatch(getAdminProductAsyncThunk())
+      .unwrap()
+      .then(res => {
+        const fetchedCategories = res?.data?.products?.map(
+          product => product.category,
+        );
+        const productIds = res.data.products.map(product => product._id);
+        console.log(productIds, '......productIds');
+        const uniqueCategories = fetchedCategories.filter(
+          (category, index, self) =>
+            index ===
+            self.findIndex(c => c && category && c._id === category._id),
+        );
+        setCategories(fetchedCategories);
+        setProductId(productIds);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.log(err);
+        setIsLoading(false);
+      });
+  }, [isFocused]);
+  useEffect(() => {
     dispatch(getCategoriesThunk())
       .unwrap()
       .then(res => {
@@ -109,7 +137,6 @@ const AddProductsScreen = () => {
 
     const formData = new FormData();
     const parsedPrice = parseFloat(price.replace(',', ''));
-
     formData.append('name', name);
     formData.append('description', description);
     formData.append('price', parsedPrice);
@@ -123,7 +150,6 @@ const AddProductsScreen = () => {
     formData.append('file', file);
 
     if (categoryID) formData.append('category', categoryID);
-
     dispatch(addProductsThunk(formData))
       .unwrap()
       .then(res => {
