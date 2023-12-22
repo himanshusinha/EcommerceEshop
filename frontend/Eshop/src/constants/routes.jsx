@@ -32,4 +32,7 @@ export default {
   ADMIN_VIEW: 'AdminView',
   ADMIN_EDIT_PRODUCTS_SCREEN: 'AdminEditProductsScreen',
   ADMIN_MANANGE_IMAGE_SCREEN: 'AdminManageImagesScreen',
+  CONFIRM_ORDER_SCREEN: 'ConfirmOrderScreen',
+  ADMIN_ORDERS_SCREEN: 'AdminOrdersScreen',
+  PAYMENT_SCREEN: 'PaymentScreen',
 };

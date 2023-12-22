@@ -77,6 +77,7 @@ const AdminCategoriesScreen = () => {
 
       <FlatList
         data={categories}
+        bounces={false}
         keyExtractor={item => item._id}
         renderItem={({item, index}) => (
           <ItemAdminCategories

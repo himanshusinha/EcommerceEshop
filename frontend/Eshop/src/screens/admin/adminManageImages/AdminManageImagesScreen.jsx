@@ -153,6 +153,10 @@ const AdminManageImagesScreen = () => {
         setGetImage(updatedImages);
         setImagesId(updatedImages.map(image => image._id));
         setIsLoading(false);
+        Toast.show({
+          type: 'success',
+          text1: res.data.message,
+        });
       } else if (deleteAdminProductImageByIdThunk.rejected.match(action)) {
         // Handle error
         Toast.show({
@@ -201,6 +205,7 @@ const AdminManageImagesScreen = () => {
           </TouchableOpacity>
         </View>
         <FlatList
+          bounces={false}
           showsHorizontalScrollIndicator={false}
           horizontal
           data={getImage}
@@ -229,22 +234,35 @@ const AdminManageImagesScreen = () => {
                       alignSelf: 'center',
                       marginVertical: moderateScale(20),
                     }}
-                    source={images.Trash} // Use the 'url' property from the item
+                    source={images.Trash}
                   />
                 </TouchableOpacity>
               </View>
             );
           }}
-          keyExtractor={item => item._id} // Use the '_id' property as the key
+          keyExtractor={item => item._id}
         />
 
-        <View style={{marginTop: moderateScale(20)}}>
+        <View
+          style={{
+            marginTop: moderateScale(20),
+            width: moderateScale(300),
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
           <Image
-            resizeMode="contain"
+            resizeMode="cover"
             style={{width: moderateScale(200), height: moderateScale(200)}}
-            source={selectedImage ? {uri: selectedImage} : images.Profile}
+            source={
+              selectedImage
+                ? {uri: selectedImage}
+                : {
+                    uri: 'https://www.dexfinity.com/wp-content/plugins/elementor/assets/images/placeholder.png',
+                  }
+            }
           />
-
+        </View>
+        <View style={{marginTop: 20}}>
           <ButtonComp text="Add Images" onPress={() => addImages()} />
         </View>
         <PickerComp

@@ -1,4 +1,5 @@
 import {Dimensions, StyleSheet} from 'react-native';
+import colors from '../../../constants/colors';
 import {moderateScale, verticalScale} from '../../../styles/responsiveSize';
 const styles = StyleSheet.create({
   itemContainer: {
@@ -11,6 +12,7 @@ const styles = StyleSheet.create({
   titleStyle: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: colors.BLACK,
   },
   selectedListItem: {
     justifyContent: 'center',
@@ -26,14 +28,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: colors.themeColor,
   },
   itemSelected: {
+    color: colors.BLACK,
     fontSize: 14,
     justifyContent: 'center',
     alignItems: 'center',
   },
   itemSelectedText: {
     fontSize: 14,
+    color: colors.WHITE,
   },
   categoriesContainer: {
     flexDirection: 'row',
@@ -46,6 +51,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderWidth: 1,
     borderColor: '#cfcfcf',
+    backgroundColor: colors.WHITE,
     borderRadius: 20,
     marginHorizontal: 30,
     width: Dimensions.get('window').width / 2,
@@ -65,18 +71,22 @@ const styles = StyleSheet.create({
   titleName: {
     fontSize: 18,
     padding: 10,
+    color: colors.BLACK,
   },
   mainTitleAddress: {
     fontSize: 18,
     padding: 20,
+    color: colors.BLACK,
   },
   maintitleAddress: {
     fontSize: 18,
     padding: 20,
+    color: colors.BLACK,
   },
   titlePrice: {
     fontSize: 16,
     padding: 10,
+    color: colors.BLACK,
   },
   imageContainer: {
     alignItems: 'flex-end',
@@ -91,11 +101,13 @@ const styles = StyleSheet.create({
     marginTop: 150,
   },
   btnCart: {
+    backgroundColor: colors.themeColor,
     height: moderateScale(40),
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
+
     marginTop: verticalScale(68),
     width: '100%',
     borderWidth: 1,
@@ -103,6 +115,7 @@ const styles = StyleSheet.create({
   },
   titleCart: {
     fontSize: 16,
+    color: colors.WHITE,
     fontWeight: 'bold',
   },
   carouselContainer: {
@@ -132,9 +145,11 @@ const styles = StyleSheet.create({
   },
   emptyTitle: {
     fontSize: 18,
+    color: colors.BLACK,
     alignSelf: 'center',
   },
   cardContainer: {
+    backgroundColor: colors.color2,
     elevation: 5,
     margin: 10,
     padding: 15,

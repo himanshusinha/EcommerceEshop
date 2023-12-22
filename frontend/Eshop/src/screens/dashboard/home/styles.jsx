@@ -4,6 +4,7 @@ import colors from '../../../constants/colors';
 import {ITEM_WIDTH} from '../../../components/List/ItemProductDetails/ItemProductDetails';
 
 const styles = StyleSheet.create({
+  flatListContainer: {},
   listStyle: {paddingHorizontal: moderateScale(10)},
   dotStyle: {
     width: 10,
@@ -15,7 +16,6 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.white,
   },
 
   addToCartContainer: {

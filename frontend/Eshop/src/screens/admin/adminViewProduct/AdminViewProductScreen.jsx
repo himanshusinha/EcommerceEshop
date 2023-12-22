@@ -1,4 +1,3 @@
-// AdminViewProductScreen.js
 import React, {useEffect, useState} from 'react';
 import {View, FlatList, Modal, TouchableWithoutFeedback} from 'react-native';
 import Chart from '../../../components/Chart/Chart';
@@ -7,7 +6,7 @@ import {getAdminProductAsyncThunk} from '../../../redux/asyncThunk/authAsyncThun
 import {useDispatch} from 'react-redux';
 import ItemAdminViewProducts from '../../../components/List/ItemAdminViewProducts/ItemAdminViewProducts';
 import Loader from '../../../components/Loader/Loader';
-import UpdateProductComp from '../../../components/Modal/UpdateProductComp'; // Assuming the correct import path
+import UpdateProductComp from '../../../components/Modal/UpdateProductComp';
 
 const AdminViewProductScreen = () => {
   const [adminProducts, setAdminProducts] = useState([]);
@@ -62,6 +61,7 @@ const AdminViewProductScreen = () => {
         </View>
         <View>
           <FlatList
+            bounces={false}
             data={adminProducts}
             renderItem={({item, index}) => (
               <ItemAdminViewProducts item={item} index={index} />

@@ -74,6 +74,7 @@ const SelectComponent = ({
                 <Headline style={styles.heading}> Select a Category</Headline>
               </View>
               <FlatList
+                bounces={false}
                 data={categories}
                 renderItem={({item}) => {
                   return (

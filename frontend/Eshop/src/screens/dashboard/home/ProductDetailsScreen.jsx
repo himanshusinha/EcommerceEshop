@@ -7,13 +7,21 @@ import Loader from '../../../components/Loader/Loader';
 import colors from '../../../constants/colors';
 import styles from './styles';
 import ButtonComp from '../../../components/Button/ButtonComp';
-import {moderateScale} from '../../../styles/responsiveSize';
+import {
+  moderateScale,
+  moderateScaleVertical,
+} from '../../../styles/responsiveSize';
+import {
+  decrementQuantity,
+  incrementQuantity,
+} from '../../../redux/slices/cart.slice';
 
 const ProductDetailsScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const route = useRoute();
   const dispatch = useDispatch();
   const id = route?.params?.id;
+  console.log(id, '.....id');
   const [productDetails, setProductDetails] = useState({});
   const [name, setName] = useState('');
   const isFocused = useIsFocused();
@@ -53,8 +61,6 @@ const ProductDetailsScreen = () => {
         style={{
           backgroundColor: colors.WHITE,
           flexGrow: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
         }}>
         <View
           style={{
@@ -65,6 +71,7 @@ const ProductDetailsScreen = () => {
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal
+            bounces={false}
             data={imagesArray}
             contentContainerStyle={{
               flexGrow: 1,
@@ -84,6 +91,7 @@ const ProductDetailsScreen = () => {
                     alignItems: 'center',
                   }}>
                   <Image
+                    resizeMode="contain"
                     source={{uri: item.url}}
                     style={{
                       width: 200,
@@ -103,6 +111,7 @@ const ProductDetailsScreen = () => {
             backgroundColor: colors.WHITE,
             height: moderateScale(350),
             marginHorizontal: moderateScale(20),
+            marginTop: moderateScaleVertical(40),
           }}>
           <Text>{name}</Text>
           <Text>{description}</Text>
@@ -124,9 +133,17 @@ const ProductDetailsScreen = () => {
               flexDirection: 'row',
               marginHorizontal: 10,
             }}>
-            <ButtonComp text="-" style={styles.btnCompStyle} />
+            <ButtonComp
+              onPress={() => dispatch(decrementQuantity())}
+              text="-"
+              style={styles.btnCompStyle}
+            />
             <Text style={styles.btnCountStyle}>0</Text>
-            <ButtonComp text="+" style={styles.btnCompStyle} />
+            <ButtonComp
+              text="+"
+              onPress={() => dispatch(incrementQuantity())}
+              style={styles.btnCompStyle}
+            />
           </View>
         </View>
       </View>

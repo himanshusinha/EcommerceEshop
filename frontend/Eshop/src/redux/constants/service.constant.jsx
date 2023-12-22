@@ -24,6 +24,8 @@ export const SERVICE_ROUTES = {
   DELETE_ADMIN_PRODUCT_BY_ID: '/api/v1/product/single/:id',
   SEARCH_ADMIN_PRODUCTS:
     '/api/v1/product/all?category=6568bc8a901888597bbcadef&keywood=book',
+  GET_ADMIN_ORDERS: '/api/v1/order/admin',
+  CREATE_ADMIN_ORDERS: '/api/v1/order/new',
 };
 //===================   Methods ==============================
 export const METHODS = {

@@ -16,7 +16,7 @@ const App = () => {
       <Provider store={store}>
         <PersistGate loading={true} persistor={persistor}>
           <Routes />
-          <Toast topOffset={50} />
+          <Toast top={120} />
         </PersistGate>
       </Provider>
     </PaperProvider>

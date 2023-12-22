@@ -90,6 +90,7 @@ const SearchScreen = () => {
           onChangeText={handleSearch}
         />
         <FlatList
+          bounces={false}
           data={filteredData}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{

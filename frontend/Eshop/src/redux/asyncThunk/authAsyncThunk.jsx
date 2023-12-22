@@ -5,9 +5,11 @@ import {
   addAdminProductImagesByIdServices,
   addProductServices,
   changePasswordService,
-  deleteAdminCategoriesByIdService,
+  createAdminOrderService,
   deleteAdminProductByIdService,
+  deleteAminCategoriesByIdServices,
   forgetPasswordService,
+  getAdminOrderService,
   getAdminProductService,
   getCategoriesService,
   getProductDetailsByIdService,
@@ -224,7 +226,7 @@ export const deleteAdminCategoriesByIdThunk = createAsyncThunk(
   ASYNC_ROUTES.DELETE_ADMIN_CATEGORIES_BY_ID,
   async ({id}, {rejectWithValue}) => {
     try {
-      const response = await deleteAdminCategoriesByIdService({id});
+      const response = await deleteAminCategoriesByIdServices({id});
       console.log(response, '.......response from delete admin service');
 
       return response;
@@ -326,6 +328,65 @@ export const searchAdminProductsThunk = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
+    }
+  },
+);
+//getAdminOrderAsyncThunk
+export const getAdminOrderAsyncThunk = createAsyncThunk(
+  ASYNC_ROUTES.GET_ADMIN_ORDERS,
+  async (payload, {rejectWithValue}) => {
+    try {
+      const response = await getAdminOrderService(payload);
+      return response;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  },
+);
+//getOrdersAsyncThunk
+export const getOrdersAsyncThunk = createAsyncThunk(
+  ASYNC_ROUTES.GET_ORDERS,
+  async (payload, {rejectWithValue}) => {
+    try {
+      const response = await getOrderService(payload);
+      return response;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  },
+);
+
+//createAdminOrderAsyncThunk
+export const createAdminOrderAsyncThunk = createAsyncThunk(
+  ASYNC_ROUTES.CREATE_ADMIN_ORDERS,
+  async (
+    {
+      shippingInfo,
+      orderItems,
+      paymentMethod,
+      paymentInfo,
+      itemsPrice,
+      taxPrice,
+      shippingCharges,
+      totalAmount,
+    },
+    {rejectWithValue},
+  ) => {
+    try {
+      const response = await createAdminOrderService({
+        shippingInfo,
+        orderItems,
+        paymentMethod,
+        paymentInfo,
+        itemsPrice,
+        taxPrice,
+        shippingCharges,
+        totalAmount,
+      });
+      console.log(response, '.......response from update admin service');
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err);
     }
   },
 );

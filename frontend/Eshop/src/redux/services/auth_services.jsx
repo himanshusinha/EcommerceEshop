@@ -350,6 +350,23 @@ export const addAdminProductImagesByIdServices = ({formData, id}) => {
 //deleteAdminProductImagesByIdServices
 // In your authAsyncThunk.js or equivalent file:
 
+export const deleteAminCategoriesByIdServices = ({formData, id}) => {
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: replaceUrl(SERVICE_ROUTES.DELETE_ADMIN_CATEGORIES_BY_ID, {id}),
+      method: METHODS.DELETE,
+      data: formData,
+    };
+    Axios.request(config)
+      .then(res => {
+        console.log(res, '.......response from service');
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
 export const deleteAdminProductImageByIdThunk =
   ({id, imageId}) =>
   async dispatch => {
@@ -411,5 +428,51 @@ export const searchAdminProductsService = async ({category, keyword}) => {
     return response.data;
   } catch (error) {
     throw error.response.data;
+  }
+};
+//getAdminOrderService
+export const getAdminOrderService = () => {
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: SERVICE_ROUTES.GET_ADMIN_ORDERS,
+      method: METHODS.GET,
+    };
+    console.log(config, '.......config');
+
+    Axios.request(config)
+      .then(res => {
+        console.log(res, '.......response from service');
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+//getOrderService
+export const getOrderService = () => {
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: SERVICE_ROUTES.GET_ORDERS,
+      method: METHODS.GET,
+    };
+    console.log(config, '.......config');
+
+    Axios.request(config)
+      .then(res => {
+        console.log(res, '.......response from service');
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+export const createAdminOrderService = async payload => {
+  try {
+    const response = await Axios.post('/api/v1/order/new', payload);
+    return response.data; // Returning just the data for simplicity. Adjust as needed.
+  } catch (error) {
+    throw error; // Throwing the error for centralized error handling in the thunk.
   }
 };

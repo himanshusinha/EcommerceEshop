@@ -23,6 +23,9 @@ export const ASYNC_ROUTES = {
   UPDATE_ADMIN_PRODUCT_BY_ID: 'updateAdminProductById',
   DELETE_ADMIN_PRODUCT_BY_ID: 'deleteAdminProductById',
   SEARCH_ADMIN_PRODUCTS: 'searchAdminProducts',
+  GET_ADMIN_ORDERS: 'getAdminOrders',
+  GET_ORDERS: 'getOrders',
+  CREATE_ADMIN_ORDERS: 'createAdminOrders',
 };
 //====================Thunk Status=====================
 export const THUNK_STATUS = {

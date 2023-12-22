@@ -5,6 +5,7 @@ import adminProductSlice from './adminProduct.slice';
 import categorySlice from './categories.slices';
 import {cartReducer} from './cart.slice';
 import signUpSlice from './signUp.slice';
+import orderSlice from './order.slice';
 export default combineReducers({
   auth: authSlices,
   theme: themeSlice,
@@ -12,4 +13,5 @@ export default combineReducers({
   signUp: signUpSlice,
   adminProduct: adminProductSlice,
   cart: cartReducer,
+  order: orderSlice,
 });

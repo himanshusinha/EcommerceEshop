@@ -31,7 +31,7 @@ export default {
   PRIMARY_BLACK: '#131A34',
   SECONDARY_BLACK: '#090F24',
   ORANGE: '#FE4F15',
-  WHITE: '#f2f2f2',
+  WHITE: '#fff',
   WHITE_DARK: '#F9F9FA',
   WHITE_SECONDARY: '#fff',
   SECONDARY_WHITE: '#F5F5F5',

@@ -13,9 +13,11 @@ import {
   AdminCategoriesScreen,
   AdminEditProductsScreen,
   AdminOrdersScreen,
-  AdminView,
   AdminViewProductScreen,
   ChangePasswordScreen,
+  ConfirmOrderScreen,
+  OrdersScreen,
+  PaymentScreen,
   ResetPasswordScreen,
 } from '../screens';
 import AdminManageImagesScreen from '../screens/admin/adminManageImages/AdminManageImagesScreen';
@@ -129,6 +131,11 @@ function DrawerNavigation() {
         component={AdminManageImagesScreen}
         name={routes.ADMIN_MANANGE_IMAGE_SCREEN}
       />
+      <Drawer.Screen
+        component={ConfirmOrderScreen}
+        name={routes.CONFIRM_ORDER_SCREEN}
+      />
+      <Drawer.Screen component={PaymentScreen} name={routes.PAYMENT_SCREEN} />
     </Drawer.Navigator>
   );
 }

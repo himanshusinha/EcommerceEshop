@@ -14,3 +14,5 @@ export {default as AdminCategoriesScreen} from './admin/adminCategories/AdminCat
 export {default as AdminOrdersScreen} from './admin/adminOrders/AdminOrdersScreen';
 export {default as AdminViewProductScreen} from './admin/adminViewProduct/AdminViewProductScreen';
 export {default as AdminEditProductsScreen} from './admin/adminEditProducts/AdminEditProductsScreen';
+export {default as ConfirmOrderScreen} from '../screens/dashboard/confirmorder/ConfirmOrderScreen';
+export {default as PaymentScreen} from './dashboard/payment/PaymentScreen';
