@@ -6,6 +6,7 @@ import {
   addProductServices,
   changePasswordService,
   createAdminOrderService,
+  createPaymentService,
   deleteAdminProductByIdService,
   deleteAminCategoriesByIdServices,
   forgetPasswordService,
@@ -385,6 +386,22 @@ export const createAdminOrderAsyncThunk = createAsyncThunk(
       });
       console.log(response, '.......response from update admin service');
       return response.data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  },
+);
+export const createPaymentAsyncThunk = createAsyncThunk(
+  ASYNC_ROUTES.CREATE_PAYMENT, // Replace with the actual async thunk route
+  async ({totalAmount}, {rejectWithValue}) => {
+    try {
+      const response = await createPaymentService(
+        totalAmount,
+        merchantDisplayName,
+        paymentMethod,
+      );
+      console.log(response, '...........response create payment thunk');
+      return response;
     } catch (err) {
       return rejectWithValue(err);
     }

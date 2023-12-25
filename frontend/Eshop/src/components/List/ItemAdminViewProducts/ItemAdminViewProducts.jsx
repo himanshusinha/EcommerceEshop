@@ -74,37 +74,37 @@ const ItemAdminViewProducts = ({item, index}) => {
               fontSize: textScale(14),
               fontFamily: fontFamily.bold,
             }}>
-            {item.category.category}
+            {item?.category?.category}
           </Text>
           <Text
             style={{
               color: index % 2 === 0 ? colors.WHITE : colors.BLACK,
               fontFamily: fontFamily.regular,
             }}>
-            {item.price}
+            {item?.price}
           </Text>
           <Text
             style={{
               color: index % 2 === 0 ? colors.WHITE : colors.BLACK,
               fontFamily: fontFamily.regular,
             }}>
-            {item.name}
+            {item?.name}
           </Text>
           <Text
             style={{
               color: index % 2 === 0 ? colors.WHITE : colors.BLACK,
               fontFamily: fontFamily.regular,
             }}>
-            {item.description.length > 22
-              ? `${item.description.slice(0, 22)}...`
-              : item.description}
+            {item?.description?.length > 22
+              ? `${item?.description?.slice(0, 22)}...`
+              : item?.description}
           </Text>
         </View>
         <TouchableOpacity
           onPress={() =>
             navigation.navigate(routes.ADMIN_EDIT_PRODUCTS_SCREEN, {
-              id: item._id,
-              imageURL: item.images[0]?.url,
+              id: item?._id,
+              imageURL: item?.images[0]?.url,
             })
           }>
           <Image

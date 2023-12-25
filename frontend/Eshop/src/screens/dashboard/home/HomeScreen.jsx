@@ -24,13 +24,13 @@ const HomeScreen = () => {
 
   const products = useSelector(state => state?.adminProduct?.products);
   const mappedProducts = products?.products?.map(product => ({
-    id: product._id,
-    name: product.name,
-    description: product.description,
-    price: product.price,
-    stock: product.stock,
-    imageUrl: product.images[0]?.url,
-    categoryId: product.category._id,
+    id: product?._id,
+    name: product?.name,
+    description: product?.description,
+    price: product?.price,
+    stock: product?.stock,
+    imageUrl: product?.images[0]?.url,
+    categoryId: product?.category?._id,
   }));
 
   const filteredProducts = selectedCategory

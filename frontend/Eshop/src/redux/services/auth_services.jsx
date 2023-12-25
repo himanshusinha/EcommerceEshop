@@ -476,3 +476,24 @@ export const createAdminOrderService = async payload => {
     throw error; // Throwing the error for centralized error handling in the thunk.
   }
 };
+export const createPaymentService = totalAmount => {
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: SERVICE_ROUTES.CREATE_PAYMENT,
+      method: METHODS.POST,
+      data: {totalAmount},
+    };
+    console.log(config, '.......config');
+
+    console.log(config, '.......create payment service');
+    Axios.request(config)
+      .then(res => {
+        console.log(res, '.......response from create payment services');
+        resolve(res);
+      })
+      .catch(err => {
+        console.log(err);
+        reject(err);
+      });
+  });
+};

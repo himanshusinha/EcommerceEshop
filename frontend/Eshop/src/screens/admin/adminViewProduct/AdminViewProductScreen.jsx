@@ -13,7 +13,7 @@ const AdminViewProductScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState('');
   const [inStockCount, setInStockCount] = useState(0);
-  const [outOfStockCount, setOutOfStockCount] = useState(10);
+  const [outOfStockCount, setOutOfStockCount] = useState(0);
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
 
@@ -22,6 +22,14 @@ const AdminViewProductScreen = () => {
       setIsLoading(true);
       try {
         const res = await dispatch(getAdminProductAsyncThunk()).unwrap();
+        const inStock = res?.data?.products?.filter(
+          product => product.stock > 0,
+        ).length;
+
+        const outOfStock = res?.data?.products?.filter(
+          product => product.stock === 0,
+        ).length;
+
         const fetchedCategories = res?.data?.products?.map(
           product => product.category,
         );
@@ -30,11 +38,8 @@ const AdminViewProductScreen = () => {
 
         const firstProduct = res?.data?.products[0];
 
-        const inStockCount = firstProduct?.stock > 0 ? 1 : 0;
-        const outOfStockCount = 10;
-
-        setInStockCount(inStockCount);
-        setOutOfStockCount(outOfStockCount);
+        setInStockCount(inStock);
+        setOutOfStockCount(outOfStock);
       } catch (err) {
         console.log(err);
       } finally {

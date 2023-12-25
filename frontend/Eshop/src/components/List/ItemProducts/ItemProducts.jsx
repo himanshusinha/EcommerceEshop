@@ -40,6 +40,7 @@ const ItemProducts = ({item, index}) => {
           navigation.navigate(routes.PRODUCT_DETAILS_SCREEN, {
             item: item,
             id: item.id,
+            image: item.imageUrl,
           });
         }}>
         <View style={styles.container}>

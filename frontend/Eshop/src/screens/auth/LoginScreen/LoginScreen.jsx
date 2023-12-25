@@ -23,6 +23,7 @@ import {useNavigation} from '@react-navigation/native';
 import routes from '../../../constants/routes';
 import {moderateVerticalScale} from 'react-native-size-matters';
 import images from '../../../constants/images';
+import {setAccessToken} from '../../../redux/slices/auth.slices';
 
 const LoginScreen = () => {
   const dispatch = useDispatch();

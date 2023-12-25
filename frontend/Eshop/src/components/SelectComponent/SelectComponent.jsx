@@ -80,8 +80,8 @@ const SelectComponent = ({
                   return (
                     <TouchableOpacity
                       onPress={() => selectCategoryHandler(item)}>
-                      <Text key={item._id} style={styles.text}>
-                        {item.category}
+                      <Text key={item?._id} style={styles.text}>
+                        {item?.category}
                       </Text>
                     </TouchableOpacity>
                   );

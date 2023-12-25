@@ -1,4 +1,12 @@
-import {FlatList, Image, Modal, ScrollView, Text, View} from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  Modal,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {useIsFocused, useRoute} from '@react-navigation/native';
 import {getProductDetailsByIdThunk} from '../../../redux/asyncThunk/authAsyncThunk';
@@ -12,6 +20,7 @@ import {
   moderateScaleVertical,
 } from '../../../styles/responsiveSize';
 import {
+  addToCart,
   decrementQuantity,
   incrementQuantity,
 } from '../../../redux/slices/cart.slice';
@@ -22,6 +31,8 @@ const ProductDetailsScreen = () => {
   const dispatch = useDispatch();
   const id = route?.params?.id;
   console.log(id, '.....id');
+  const imageUrls = route?.params?.image;
+  console.log(imageUrls, '........imageurls');
   const [productDetails, setProductDetails] = useState({});
   const [name, setName] = useState('');
   const isFocused = useIsFocused();
@@ -106,44 +117,19 @@ const ProductDetailsScreen = () => {
           />
         </View>
 
-        <ScrollView
+        <View
           style={{
-            backgroundColor: colors.WHITE,
-            height: moderateScale(350),
-            marginHorizontal: moderateScale(20),
-            marginTop: moderateScaleVertical(40),
+            height: Dimensions.get('window').height / 1.6,
+            backgroundColor: colors.white,
           }}>
-          <Text>{name}</Text>
-          <Text>{description}</Text>
-        </ScrollView>
-        <View style={styles.btnRowStyle}>
           <View
             style={{
-              flex: 0.6,
-              justifyContent: 'center',
-              alignItems: 'center',
+              backgroundColor: colors.WHITE,
+              marginHorizontal: moderateScale(20),
+              marginTop: moderateScaleVertical(40),
             }}>
-            <ButtonComp text="Add to cart" />
-          </View>
-          <View
-            style={{
-              flex: 0.4,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-              marginHorizontal: 10,
-            }}>
-            <ButtonComp
-              onPress={() => dispatch(decrementQuantity())}
-              text="-"
-              style={styles.btnCompStyle}
-            />
-            <Text style={styles.btnCountStyle}>0</Text>
-            <ButtonComp
-              text="+"
-              onPress={() => dispatch(incrementQuantity())}
-              style={styles.btnCompStyle}
-            />
+            <Text>{name}</Text>
+            <Text>{description}</Text>
           </View>
         </View>
       </View>

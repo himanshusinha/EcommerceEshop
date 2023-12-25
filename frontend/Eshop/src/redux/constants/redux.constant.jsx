@@ -26,6 +26,7 @@ export const ASYNC_ROUTES = {
   GET_ADMIN_ORDERS: 'getAdminOrders',
   GET_ORDERS: 'getOrders',
   CREATE_ADMIN_ORDERS: 'createAdminOrders',
+  CREATE_PAYMENT: 'createPayment',
 };
 //====================Thunk Status=====================
 export const THUNK_STATUS = {

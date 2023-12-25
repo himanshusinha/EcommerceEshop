@@ -5,8 +5,7 @@ import AuthNavigation from './AuthNavigation';
 import {useSelector} from 'react-redux';
 
 const Routes = () => {
-  const {user, accessToken} = useSelector(state => state?.auth);
-  console.log(user);
+  const {accessToken, user} = useSelector(state => state?.auth);
   return (
     <NavigationContainer>
       {user ? <DrawerNavigation /> : <AuthNavigation />}

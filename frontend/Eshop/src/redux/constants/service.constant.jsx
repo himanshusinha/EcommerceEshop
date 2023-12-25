@@ -26,6 +26,7 @@ export const SERVICE_ROUTES = {
     '/api/v1/product/all?category=6568bc8a901888597bbcadef&keywood=book',
   GET_ADMIN_ORDERS: '/api/v1/order/admin',
   CREATE_ADMIN_ORDERS: '/api/v1/order/new',
+  CREATE_PAYMENT: '/api/v1/order/payment',
 };
 //===================   Methods ==============================
 export const METHODS = {

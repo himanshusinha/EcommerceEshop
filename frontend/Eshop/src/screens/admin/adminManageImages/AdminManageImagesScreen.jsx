@@ -113,6 +113,11 @@ const AdminManageImagesScreen = () => {
         formData.append('file', file);
         const imageIds = res?.data.map(image => image._id);
         console.log(imageIds, '......image IDs from manage images thunk');
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: res?.data?.message,
+        });
         setImagesId(imageIds);
       })
       .catch(err => {
@@ -159,22 +164,12 @@ const AdminManageImagesScreen = () => {
         });
       } else if (deleteAdminProductImageByIdThunk.rejected.match(action)) {
         // Handle error
-        Toast.show({
-          type: 'error',
-          text1: 'Error',
-          text2:
-            action.error.message ||
-            'An error occurred while deleting the image.',
-        });
+        console.log(action.error.message);
         setIsLoading(false);
       }
     } catch (error) {
       console.error('Error deleting image:', error);
-      Toast.show({
-        type: 'error',
-        text1: 'Error',
-        text2: 'An error occurred while deleting the image.',
-      });
+
       setIsLoading(false);
     }
   };

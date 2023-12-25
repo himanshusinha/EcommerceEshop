@@ -40,31 +40,21 @@ const CustomDrawer = props => {
     dispatch(logOutAsyncThunk())
       .unwrap()
       .then(res => {
+        console.log('Logout response:', res);
+
         if (res && res.status === 200) {
           Toast.show({
             type: 'success',
             text1: res.data.message,
           });
-
-          // Remove the accessToken from AsyncStorage
-          AsyncStorage.removeItem('accessToken').catch(error => {
-            console.error(
-              'Error removing access token from AsyncStorage:',
-              error,
-            );
-          });
-
-          dispatch(setAccessToken(null));
-
-          dispatch(resetAuthState());
-
           navigation.navigate(routes.LOGIN_SCREEN);
         }
       })
       .catch(err => {
+        console.error('Logout error:', err);
         Toast.show({
           type: 'error',
-          text1: err.data.message,
+          text1: err.data?.message,
         });
       });
   };

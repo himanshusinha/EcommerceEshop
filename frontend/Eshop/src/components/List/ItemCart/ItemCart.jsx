@@ -25,7 +25,9 @@ const ItemCart = ({id, name, price, image, quantity = 0}) => {
       });
       dispatch(removeItem(id));
     } else {
-      dispatch(decrementQuantity(id));
+      if (quantity > 0) {
+        dispatch(decrementQuantity(id));
+      }
     }
   };
 

@@ -1,7 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {THUNK_STATUS} from '../constants/redux.constant';
 import {loginAsyncThunk} from '../asyncThunk/authAsyncThunk';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initialState = {
   user: [],
@@ -48,9 +47,6 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.isAuthenticated = true;
       state.isError = false;
-      AsyncStorage.setItem('accessToken', state.accessToken).catch(error => {
-        console.error('Error setting access token in AsyncStorage:', error);
-      });
     });
 
     builder.addCase(loginAsyncThunk.rejected, (state, action) => {
