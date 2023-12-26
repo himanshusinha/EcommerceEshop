@@ -24,8 +24,8 @@ const SelectComponent = ({
   onCancel,
 }) => {
   const selectCategoryHandler = item => {
-    setCategory(item.category);
-    setCategoryID(item._id);
+    setCategory(item?.category);
+    setCategoryID(item?._id);
     setVisible(false);
   };
 

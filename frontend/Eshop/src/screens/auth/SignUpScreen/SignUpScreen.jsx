@@ -143,10 +143,6 @@ const SignUpScreen = () => {
           setIsLoading(false);
           navigation.goBack();
         } else {
-          Toast.show({
-            type: 'error',
-            text1: res.data.message,
-          });
           setIsLoading(false);
         }
         setName('');

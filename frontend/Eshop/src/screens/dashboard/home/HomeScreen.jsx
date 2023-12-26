@@ -34,7 +34,9 @@ const HomeScreen = () => {
   }));
 
   const filteredProducts = selectedCategory
-    ? mappedProducts?.filter(product => product.categoryId === selectedCategory)
+    ? mappedProducts?.filter(
+        product => product?.categoryId === selectedCategory,
+      )
     : mappedProducts;
 
   useEffect(() => {
@@ -54,7 +56,7 @@ const HomeScreen = () => {
 
   const handleCategoryPress = item => {
     setSelectedCategory(prevCategory => {
-      if (prevCategory === item._id) {
+      if (prevCategory === item?._id) {
         return ''; // Unselect the category if it was already selected
       }
       return item._id; // Select the category if it wasn't selected
@@ -65,14 +67,14 @@ const HomeScreen = () => {
     return (
       <ItemCategories
         item={item}
-        isSelected={selectedCategory === item._id}
+        isSelected={selectedCategory === item?._id}
         onPress={() => handleCategoryPress(item)}
       />
     );
   };
 
   const renderProductItem = ({item}) => {
-    if (selectedCategory && item.categoryId !== selectedCategory) {
+    if (selectedCategory && item?.categoryId !== selectedCategory) {
       return null;
     }
 

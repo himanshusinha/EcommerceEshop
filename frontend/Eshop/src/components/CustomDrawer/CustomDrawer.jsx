@@ -20,8 +20,7 @@ import {
 } from '../../redux/asyncThunk/authAsyncThunk';
 import Toast from 'react-native-toast-message';
 import {useDispatch, useSelector} from 'react-redux';
-import {resetAuthState, setAccessToken} from '../../redux/slices/auth.slices';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {setRole} from '../../redux/slices/auth.slices';
 
 const CustomDrawer = props => {
   const selectedRouteName = props.state.routes[props.state.index].name;
@@ -68,6 +67,7 @@ const CustomDrawer = props => {
           setProfile(userProfile.avatar.url);
           setName(userProfile.name);
           setEmail(userProfile.email);
+          dispatch(setRole(userProfile.role));
         }
       })
       .catch(err => {
@@ -320,6 +320,31 @@ const CustomDrawer = props => {
                   color: 'black',
                 }}>
                 Orders
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(routes.ADMIN_PROCESS_ORDER_SCREEN);
+            }}
+            style={{
+              paddingVertical: 15,
+              backgroundColor: '#fff',
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Ionicons name="add-circle-outline" size={22} />
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontFamily: 'Roboto-Medium',
+                  marginLeft: 5,
+                  color: 'black',
+                }}>
+                Process Orders
               </Text>
             </View>
           </TouchableOpacity>

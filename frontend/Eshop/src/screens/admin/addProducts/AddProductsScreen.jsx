@@ -37,6 +37,7 @@ const AddProductsScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [imageFile, setImageFile] = useState();
   const [categories, setCategories] = useState([]);
+  console.log(categories, '.....categories');
   const isFocused = useIsFocused();
   const [productId, setProductId] = useState([]);
   console.log(productId, '.........productIdd');
@@ -123,15 +124,17 @@ const AddProductsScreen = () => {
     dispatch(getCategoriesThunk())
       .unwrap()
       .then(res => {
-        console.log(res);
+        console.log(res, '........categories response');
         console.log(res?.data, '......res from categories thunk');
-        console.log(res?.data?.categories);
+        console.log(res?.data?.categories, '........getc');
         setCategories(res?.data?.categories);
       })
       .catch(err => {
         console.log(err);
       });
   }, [isFocused]);
+  console.log(categories, 'Updated Categories State');
+
   const addProducts = async () => {
     setIsLoading(true);
 
@@ -363,6 +366,7 @@ const AddProductsScreen = () => {
             categories={categories}
             setCategoryID={setCategoryID}
             setCategory={setCategory}
+            setCategories={setCategories}
             visible={visible}
             setVisible={setVisible}
           />
