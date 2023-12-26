@@ -497,3 +497,20 @@ export const createPaymentService = totalAmount => {
       });
   });
 };
+//processOrderByIdService
+export const processOrderByIdService = id => {
+  // console.log(id, 'service get id'); // Uncomment for debugging
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: replaceUrl(SERVICE_ROUTES.PROCESS_ORDER_BY_ID, id),
+      method: METHODS.PUT,
+    };
+    Axios.request(config)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};

@@ -6,6 +6,7 @@ export default {
   ADMIN_CATEGORIES_SCREEN: 'AdminCategoriesScreen',
   ADMIN_PRODUCT_SCREEN: 'AdminProductScreen',
   ADMIN_VIEW_PRODUCT_SCREEN: 'AdminViewProductScreen',
+  ADMIN_PROCESS_ORDER_SCREEN: 'AdminProcessOrderScreen',
   CHANGE_PASSWORD_SCREEN: 'ChangePasswordScreen',
   RESET_PASSWORD_SCREEN: 'ResetPasswordScreen',
   FORGOT_PASSWORD_SCREEN: 'ForgotPasswordScreen',

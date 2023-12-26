@@ -27,6 +27,7 @@ export const SERVICE_ROUTES = {
   GET_ADMIN_ORDERS: '/api/v1/order/admin',
   CREATE_ADMIN_ORDERS: '/api/v1/order/new',
   CREATE_PAYMENT: '/api/v1/order/payment',
+  PROCESS_ORDER_BY_ID: '/api/v1/order/single/:id',
 };
 //===================   Methods ==============================
 export const METHODS = {

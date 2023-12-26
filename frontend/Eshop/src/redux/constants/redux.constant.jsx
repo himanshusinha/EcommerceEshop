@@ -27,6 +27,7 @@ export const ASYNC_ROUTES = {
   GET_ORDERS: 'getOrders',
   CREATE_ADMIN_ORDERS: 'createAdminOrders',
   CREATE_PAYMENT: 'createPayment',
+  PROCESS_ORDER_BY_ID: 'processOrderById',
 };
 //====================Thunk Status=====================
 export const THUNK_STATUS = {

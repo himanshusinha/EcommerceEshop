@@ -157,10 +157,10 @@ const AdminEditProductsScreen = () => {
       )
         .then(
           res => console.log(res),
-          console.log(
-            adminProductUpdateResponse,
-            '...admin product update response',
-          ),
+          Toast.show({
+            type: 'success',
+            text1: 'Product updated successfully',
+          }),
         )
         .catch(err => console.log(err));
 

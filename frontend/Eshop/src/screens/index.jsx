@@ -16,3 +16,4 @@ export {default as AdminViewProductScreen} from './admin/adminViewProduct/AdminV
 export {default as AdminEditProductsScreen} from './admin/adminEditProducts/AdminEditProductsScreen';
 export {default as ConfirmOrderScreen} from '../screens/dashboard/confirmorder/ConfirmOrderScreen';
 export {default as PaymentScreen} from './dashboard/payment/PaymentScreen';
+export {default as AdminProcessOrdersScreen} from './admin/adminProcessOrders/AdminProcessOrdersScreen';

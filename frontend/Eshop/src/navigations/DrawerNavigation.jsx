@@ -21,6 +21,7 @@ import {
   ResetPasswordScreen,
 } from '../screens';
 import AdminManageImagesScreen from '../screens/admin/adminManageImages/AdminManageImagesScreen';
+import AdminProcessOrdersScreen from '../screens/admin/adminProcessOrders/AdminProcessOrdersScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -136,6 +137,10 @@ function DrawerNavigation() {
         name={routes.CONFIRM_ORDER_SCREEN}
       />
       <Drawer.Screen component={PaymentScreen} name={routes.PAYMENT_SCREEN} />
+      <Drawer.Screen
+        component={AdminProcessOrdersScreen}
+        name={routes.ADMIN_PROCESS_ORDER_SCREEN}
+      />
     </Drawer.Navigator>
   );
 }

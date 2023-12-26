@@ -13,7 +13,7 @@ const AdminViewProductScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState('');
   const [inStockCount, setInStockCount] = useState(0);
-  const [outOfStockCount, setOutOfStockCount] = useState(0);
+  const [outOfStockCount, setOutOfStockCount] = useState(10);
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
 
@@ -25,7 +25,6 @@ const AdminViewProductScreen = () => {
         const inStock = res?.data?.products?.filter(
           product => product.stock > 0,
         ).length;
-
         const outOfStock = res?.data?.products?.filter(
           product => product.stock === 0,
         ).length;
@@ -39,7 +38,7 @@ const AdminViewProductScreen = () => {
         const firstProduct = res?.data?.products[0];
 
         setInStockCount(inStock);
-        setOutOfStockCount(outOfStock);
+        setOutOfStockCount(12);
       } catch (err) {
         console.log(err);
       } finally {

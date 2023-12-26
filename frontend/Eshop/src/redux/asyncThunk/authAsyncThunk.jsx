@@ -17,6 +17,7 @@ import {
   getProfileService,
   logOutService,
   loginService,
+  processOrderByIdService,
   resetPasswordService,
   signUpService,
   updateAdminProductByIdService,
@@ -391,6 +392,7 @@ export const createAdminOrderAsyncThunk = createAsyncThunk(
     }
   },
 );
+//createPaymentAsyncThunk
 export const createPaymentAsyncThunk = createAsyncThunk(
   ASYNC_ROUTES.CREATE_PAYMENT, // Replace with the actual async thunk route
   async ({totalAmount}, {rejectWithValue}) => {
@@ -401,6 +403,20 @@ export const createPaymentAsyncThunk = createAsyncThunk(
         paymentMethod,
       );
       console.log(response, '...........response create payment thunk');
+      return response;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  },
+);
+//processOrderByIdThunk
+export const processOrderByIdThunk = createAsyncThunk(
+  ASYNC_ROUTES.PROCESS_ORDER_BY_ID,
+  async ({id}, {rejectWithValue}) => {
+    try {
+      const response = await processOrderByIdService({id});
+      console.log(response, '.......response from delete admin service');
+
       return response;
     } catch (err) {
       return rejectWithValue(err);

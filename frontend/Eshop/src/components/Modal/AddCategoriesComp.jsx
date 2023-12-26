@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Modal,
@@ -24,6 +24,8 @@ const AddCategoriesComp = props => {
 
   const [categories, setCategories] = useState('');
   const [existingCategories, setExistingCategories] = useState([]);
+
+ 
   const checkValidation = () => {
     if (!categories || (categories && categories.length === 0)) {
       Toast.show({
@@ -64,8 +66,14 @@ const AddCategoriesComp = props => {
             ...prev,
             ...uniqueCategories.map(c => c.trim()), // Trim categories for consistency
           ]);
-          props.onCancel();
           setCategories('');
+          Toast.show({
+            type: 'success',
+            text1: 'Category added successfully',
+          });
+
+          // Close the modal
+          props.onCancel();
         } else {
           console.error(
             'Fetched categories is not an array:',
