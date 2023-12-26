@@ -8,11 +8,15 @@ where products are showing by categories
 user can add products in cart 
 also implemented bottom tab and side navigation drawer
 in side navigation drawer admin profile pic and there email showing
+admin can update profile  
 admin can add product edit products delete products
 admin can also view there products 
 products stock and outof stock showing in chart 
+admin can search products 
 there are two types of payment mode cod and online payment
-for online payment stripe payment integration added
+for online payment stripe payment integration 
+
+
 ![Simulator Screen Shot - iPhone 14 Pro Max - 2023-12-26 at 09 26 49](https://github.com/himanshusinha/EcommerceEshop/assets/3622434/c00933f3-1994-408e-bcc5-9022c0182e1e)
 ![Simulator Screen Shot - iPhone 14 Pro Max - 2023-12-26 at 09 26 46](https://github.com/himanshusinha/EcommerceEshop/assets/3622434/16a51d2b-bbf2-4434-8ebb-79d9b4aa4dc6)
 ![Simulator Screen Shot - iPhone 14 Pro Max - 2023-12-26 at 09 26 36](https://github.com/himanshusinha/EcommerceEshop/assets/3622434/e51c2274-daaa-48eb-b32f-6bcc7eaa98c5)
@@ -50,6 +54,10 @@ for online payment stripe payment integration added
 ![Simulator Screen Shot - iPhone 14 Pro Max - 2023-12-25 at 21 08 17](https://github.com/himanshusinha/EcommerceEshop/assets/3622434/dca4bbb2-f093-4f5e-b127-b6dddfe98259)
 ![Simulator Screen Shot - iPhone 14 Pro Max - 2023-12-25 at 21 08 13](https://github.com/himanshusinha/EcommerceEshop/assets/3622434/b8d2eab4-32be-4d1b-ac51-b509ea0b18e1)
 ![Simulator Screen Shot - iPhone 14 Pro Max - 2023-12-25 at 21 08 06](https://github.com/himanshusinha/EcommerceEshop/assets/3622434/757bd33f-94eb-4860-ace6-78a2d3cafdd6)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-12-26 at 13 03 07](https://github.com/himanshusinha/EcommerceEshop/assets/3622434/3234502d-dff0-4beb-9c0f-710483242ee9)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-12-26 at 13 02 51](https://github.com/himanshusinha/EcommerceEshop/assets/3622434/b26e7ba3-c809-436f-a304-94b9ddbf1277)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-12-26 at 13 02 22](https://github.com/himanshusinha/EcommerceEshop/assets/3622434/7fbc71aa-52f9-4385-b776-9b1e7f916c63)
+![Simulator Screen Shot - iPhone 14 Pro Max - 2023-12-26 at 12 57 11](https://github.com/himanshusinha/EcommerceEshop/assets/3622434/5c02392b-9364-4470-bc83-fa2961b65fd8)
 ![Simulator Screen Shot - iPhone 14 Pro Max - 2023-12-25 at 21 07 42](https://github.com/himanshusinha/EcommerceEshop/assets/3622434/f43d28a0-a144-43ae-8901-3a5dfae8d93e)
 ![Simulator Screen Shot - iPhone 14 Pro Max - 2023-12-25 at 21 06 44](https://github.com/himanshusinha/EcommerceEshop/assets/3622434/d38879a9-b03a-4b2d-95b6-c4928ee3b00b)
 ![Simulator Screen Shot - iPhone 14 Pro Max - 2023-12-25 at 21 02 54](https://github.com/himanshusinha/EcommerceEshop/assets/3622434/f70c0b48-c906-4c68-b6ab-61b39a58929a)
