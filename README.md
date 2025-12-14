@@ -1,21 +1,21 @@
 EcommerceApp
 
-admin 
-In these app admin can login and register 
+admin
+In these app admin can login and register
 admin can also forgot password,reset password and change password
-user comes to home screen after successful login 
-where products are showing by categories 
-user can add products in cart 
+user comes to home screen after successful login
+where products are showing by categories
+user can add products in cart
 also implemented bottom tab and side navigation drawer
 in side navigation drawer admin profile pic and there email showing
 admin can update profile  
 admin can add product edit products delete products
-admin can also view there products 
-products stock and outof stock showing in chart 
-admin can search products 
+admin can also view there products
+products stock and outof stock showing in chart
+admin can search products
 there are two types of payment mode cod and online payment
-for online payment stripe payment integration 
-
+for online payment stripe payment integration
+mongodb setup
 
 ![Simulator Screen Shot - iPhone 14 Pro Max - 2023-12-26 at 09 26 49](https://github.com/himanshusinha/EcommerceEshop/assets/3622434/c00933f3-1994-408e-bcc5-9022c0182e1e)
 ![Simulator Screen Shot - iPhone 14 Pro Max - 2023-12-26 at 09 26 46](https://github.com/himanshusinha/EcommerceEshop/assets/3622434/16a51d2b-bbf2-4434-8ebb-79d9b4aa4dc6)
